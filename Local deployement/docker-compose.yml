@@ -1,0 +1,30 @@
+ version: "3.7"
+ services:
+      adminPortal:
+          image: adminportal:latest
+          ports:
+          - 5000:5000
+          links:
+          - mysql
+          command: ["node","server.js"]
+
+      mysql:
+          image: mysql:latest
+          ports:
+          - 3306:3306
+          volumes:
+              - ./config/db.sql:/docker-entrypoint-initdb.d/db.sql
+          env_file:
+              - env/mysql.env
+
+      phpmyadmin:
+          image: phpmyadmin/phpmyadmin
+          links: 
+              - mysql
+          ports:
+              - 8080:80
+          environment:
+              PMA_HOST: mysql
+              PMA_PORT: 3306
+              PMA_ARBITRARY: 1
+          restart: always

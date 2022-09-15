@@ -1,0 +1,2 @@
+Create DATABASE IF NOT EXISTS `db`;
+USE `db`;
