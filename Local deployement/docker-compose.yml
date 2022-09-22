@@ -1,12 +1,28 @@
  version: "3.7"
  services:
-      adminPortal:
-          image: adminportal:latest
+      apiServer:
+          image: apiserver:latest
           ports:
           - 5000:5000
           links:
           - mysql
           command: ["node","server.js"]
+
+      adminPortal:
+          image: adminportal:latest
+          ports:
+          - 3000:3000
+          links:
+          - apiServer
+          command: ["npm","start"]
+
+      userPortal:
+          image: userportal:latest
+          ports:
+          - 3001:3001
+          links:
+          - apiServer
+          command: ["npm","start"]
 
       mysql:
           image: mysql:latest
@@ -14,8 +30,11 @@
           - 3306:3306
           volumes:
               - ./config/db.sql:/docker-entrypoint-initdb.d/db.sql
-          env_file:
-              - env/mysql.env
+          environment:
+              MYSQL_ROOT_PASSWORD: root
+              MYSQL_DATABASE: db
+              MYSQL_USER: yassine
+              MYSQL_PASSWORD: root
 
       phpmyadmin:
           image: phpmyadmin/phpmyadmin
