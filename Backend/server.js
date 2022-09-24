@@ -3,6 +3,15 @@ const mysql = require('mysql2')
 const dbconfig = require('../config/database-config')
 pool = mysql.createPool(dbconfig.connection)
 const app = express();
+const adminRoute  = require('./routes/admin');
+
+// handling requests via router
+app.use(adminRoute);
+
+
+
+
+
 app.get('/api',(req,res)=>{
     console.log('hello')
     res.status(200).json({message:'adminPortal'})
