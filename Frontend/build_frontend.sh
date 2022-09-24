@@ -1,7 +1,7 @@
 #! /bin/sh
 
 echo "\n----------------------------\n building the adminPortal :\n";
-cd adminPortal
+cd admin-portal
 rm package-lock.json # preventing the babel:fevents error from accuring
 npm install
 
@@ -9,7 +9,6 @@ echo "building the docker image: \n\n"
 docker build . -t adminportal:latest
 
 cd ..
-
 echo "\n----------------------------\n building the user Portal :\n";
 
 cd user-portal
