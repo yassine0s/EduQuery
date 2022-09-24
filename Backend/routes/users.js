@@ -1,19 +1,20 @@
-import {Router} from "express";
-import {create, get_all, get_one, remove} from "../controllers/users.contoller";
 
-const router = Router();
+const    {create, get_all, get_one, remove} = require("../controllers/users.controller") ;
 
-// Get All
-router.get("/", get_all);
+const express = require('express');
+const router = express.Router();
 
-// Get one
-router.get("/:id", get_one);
+// // Get All
+// router.get("/", get_all);
 
-// Create
-router.post("/", create);
+// // Get one
+// router.get("/:id", get_one);
 
-// Delete
-router.delete("/:id", remove)
+// // Create
+// router.post("/", create);
+
+// // Delete
+// router.delete("/:id", remove)
 
 // Hide
 
@@ -21,4 +22,4 @@ router.delete("/:id", remove)
 
 
 
-export default router;
+module.exports = router;
