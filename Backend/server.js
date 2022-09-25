@@ -4,6 +4,16 @@ const dbconfig = require('./configs/database-config')
 pool = mysql.createPool(dbconfig.connection)
 const app = express();
 const adminRoute  = require('./routes/admin');
+const PORT = 5000; // Port of the backend server.
+
+
+
+// setting up header content type
+app.use(function (req, res, next) {
+    req.headers['content-type'] = 'application/json';
+    next();
+  });
+
 
 // handling requests via router
 app.use(adminRoute);
@@ -12,12 +22,5 @@ app.use(adminRoute);
 
 
 
-app.get('/api',(req,res)=>{
-    console.log('hello')
-    res.status(200).json({message:'adminPortal'})
-})
-app.get('/users',(req,res)=>{
-    console.log('hello')
-    res.status(200).json({message:'userportal   '})
-})
-app.listen(5000)
+
+app.listen(PORT, console.log("Server started on port " + PORT));
