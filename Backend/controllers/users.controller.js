@@ -77,7 +77,7 @@ exports.create = async (req,res,next)=> {
 
 
 /**
- * Delete a specific users from the database
+ * Delete a specific user from the database
  * Precondition:
  *  users id must be given as a parameter to the request.
  * 
