@@ -2,17 +2,18 @@ const    {create, get_all, get_one, remove} = require("../controllers/department
 
 const express = require('express');
 const router = express.Router();
+
 // Get All
-// router.get("/", get_all);
+router.get("/", get_all);
 
-// // Get one
-// router.get("/:id", get_one);
+// Get one
+router.get("/:id", get_one);
 
-// // Create
-// router.post("/", create);
+// Create
+router.post("/", create);
 
-// // Delete
-// router.delete("/:id", remove)
+// Delete
+router.delete("/:id", remove)
 
 // Hide
 
