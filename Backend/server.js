@@ -9,7 +9,6 @@ const app = express();
 const adminRoute  = require('./routes/admin');
 const PORT = 5000; // Port of the backend server.
 
-
 // Configuring body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

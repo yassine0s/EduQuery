@@ -1,19 +1,25 @@
-const    {create, get_all, get_one, remove} = require("../controllers/questions.controller") ;
-
+const {create, get_all, get_by_category, remove,get_own} = require("../controllers/questions.controller") ;
 const express = require('express');
 const router = express.Router();
 
 // // Get All
-// router.get("/", get_all);
+router.get("/", get_all);
 
-// // Get one
-// router.get("/:id", get_one);
 
-// // Create
+// Create
 // router.post("/", create);
 
-// // Delete
-// router.delete("/:id", remove)
+
+// Get own questions
+router.get("/profile/:uid", get_own);
+
+
+// get by filter
+router.get("/filter/category", get_by_category);
+
+// // get by filter
+// router.get("/filter/title", get_by_title);
+
 
 // Hide
 

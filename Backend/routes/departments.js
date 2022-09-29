@@ -1,5 +1,4 @@
-const    {create, get_all, get_one, remove} = require("../controllers/departments.controller") ;
-
+const {create, get_all, get_one, remove} = require("../controllers/departments.controller") ;
 const express = require('express');
 const router = express.Router();
 

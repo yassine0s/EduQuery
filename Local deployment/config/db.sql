@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Sep 24, 2022 at 09:01 AM
+-- Generation Time: Sep 25, 2022 at 08:18 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.0.19
 
@@ -85,6 +85,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `firstname`, `lastname`, `email`, `type`) VALUES
+(1, 'yaSine', 'Yassine', 'Mrabet', 'yassine@gmail.com', 'student');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -111,6 +118,16 @@ ALTER TABLE `questions`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
