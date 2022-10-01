@@ -8,11 +8,11 @@ const router = express.Router();
 // // Get one
 // router.get("/:id", get_one);
 
-// // Create
-// router.post("/", create);
+// Create
+router.post("/", create);
 
-// // Delete
-// router.delete("/:id", remove)
+// Delete
+router.delete("/:id", remove)
 
 // Hide
 
