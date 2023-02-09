@@ -179,7 +179,7 @@ exports.update = async (req, res, next) => {
 };
 
 /**
- * Get a question depending on a specific filter
+ * Get a question depending a similar title
  * Precondition:
  *
  *
