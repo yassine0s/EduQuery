@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Sep 29, 2022 at 06:10 PM
+-- Generation Time: Feb 15, 2023 at 01:58 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.0.19
 
@@ -108,15 +108,16 @@ CREATE TABLE `users` (
   `firstname` text NOT NULL,
   `lastname` text NOT NULL,
   `email` text NOT NULL,
-  `type` text NOT NULL
+  `type` text NOT NULL,
+  `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `firstname`, `lastname`, `email`, `type`) VALUES
-(1, 'yaSine', 'Yassine', 'Mrabet', 'yassine@gmail.com', 'student');
+INSERT INTO `users` (`id`, `username`, `firstname`, `lastname`, `email`, `type`, `password`) VALUES
+(1, 'yaSine', 'yassine', 'Mrabet', 'yassine@gmail.com', 'student', 'yassine123');
 
 --
 -- Indexes for dumped tables
@@ -183,7 +184,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

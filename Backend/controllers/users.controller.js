@@ -30,9 +30,42 @@ exports.get_one = async (req, res, next) => {
   ]);
   if (qry.error) return next(qry.error);
   if (qry.results.length == 0)
-    return res.status(404).send({ message: "user not found" });
+    return res.status(404).send({ message: "user is not found" });
 
   return res.status(200).send(qry.results[0]);
+};
+
+/**
+ * Get a specific user data
+ * Precondition:
+ *  user email and password must be given as body to the request.
+ *
+ * Returns:
+ *  status: 200
+ *  Object: user
+ *
+ */
+exports.check = async (req, res, next) => {
+  const  email  = req.query.email;
+  const  password  = req.query.password;
+
+  console.log(req.query,email)
+  if (!email || !password) {
+    return res.status(400).send({ message: "Missing email or password" });
+  }
+  try {
+    const qry = await execQuery(
+      "SELECT * FROM `users` WHERE email = ? AND password = ?",
+      [email, password]
+    );
+    if (qry.results.length === 0) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    return res.status(200).send(qry.results[0]);
+  } catch (error) {
+    return next(error);
+  }
 };
 
 /**
@@ -52,7 +85,9 @@ exports.create = async (req, res, next) => {
     !req.body.type ||
     !req.body.firstname ||
     !req.body.lastname ||
-    !req.body.email
+    !req.body.email ||
+    !req.body.password
+
   ) {
     return res
       .status(500)
@@ -69,13 +104,14 @@ exports.create = async (req, res, next) => {
 
   /* Inserting into the database */
   qry = await execQuery(
-    "INSERT INTO `users` (`username`, `firstname`, `lastname`, `email`, `type`) values (?,?,?,?,?);",
+    "INSERT INTO `users` (`username`, `firstname`, `lastname`, `email`, `type`,`password`) values (?,?,?,?,?,?);",
     [
       req.body.username,
       req.body.firstname,
       req.body.lastname,
       req.body.email,
       req.body.type,
+      req.body.password,
     ]
   );
   if (qry.error) return next(qry.error);

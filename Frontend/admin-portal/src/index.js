@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom"
 import { PublicClientApplication } from "@azure/msal-browser";
 import { msalConfig } from "./configs/authConfig";
 import { MsalProvider } from "@azure/msal-react";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 
