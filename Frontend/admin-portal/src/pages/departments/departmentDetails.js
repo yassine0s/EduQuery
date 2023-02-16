@@ -12,7 +12,10 @@ import {
   MDBTableBody,
   MDBInputGroup,
 } from "mdb-react-ui-kit";
+<<<<<<< HEAD
 import { openNotification } from "../../utils/functions";
+=======
+>>>>>>> 9611509 (department + subject crud)
 
 export default function DepartmentDetails() {
   const { id } = useParams();
@@ -86,7 +89,6 @@ export default function DepartmentDetails() {
       console.log(error);
     }
   };
-
   const handleEditSubjectClick = async (id) => {
     let path = `/subjectdetails/${id}`;
     navigate(path);

@@ -12,8 +12,6 @@ router.get("/login", check);
 // Get one
 router.get("/:id", get_one);
 
-
-
 // Create
 router.post("/", create);
 

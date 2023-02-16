@@ -3,13 +3,13 @@ import Mainpage from "./pages/mainpage";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-import Departments from "./pages/departments";
+import Departments from "./pages/departments/departments";
 import Layout from "./layout";
 import Users from "./pages/users/users";
-import Subjects from "./pages/subjects";
-import DepartmentDetails from "./pages/departmentDetails";
+import Subjects from "./pages/subjects/subjects";
+import DepartmentDetails from "./pages/departments/departmentDetails";
 import Login from "./pages/logging/login";
-import SubjectDetails from "./pages/subjectDetails";
+import SubjectDetails from "./pages/subjects/subjectDetails";
 import UserDetails from "./pages/users/userDetails";
 
 function App() {
@@ -21,8 +21,8 @@ function App() {
         <Route path="/departments" element={<Departments />} />{" "}
         <Route path="/users" element={<Users />} />{" "}
         <Route path="/subjects" element={<Subjects />} />{" "}
-        <Route path="/departmentdetails" element={<DepartmentDetails />} />{" "}
-        <Route path="/subjectdetails" element={<SubjectDetails />} />{" "}
+        <Route path="/departmentdetails/:id" element={<DepartmentDetails />} />{" "}
+        <Route path="/subjectdetails/:id" element={<SubjectDetails />} />{" "}
         <Route path="/userdetails/:id" element={<UserDetails />} />{" "}
       </Route>
     </Routes>

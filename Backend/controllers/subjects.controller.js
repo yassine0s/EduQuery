@@ -21,8 +21,8 @@ exports.get_all = async (req, res, next) => {
  *
  */
  exports.get_dsubjs = async (req, res, next) => {
-  console.log("[subjects/get_dsubjs]: getting subjects data: ");
-  let qry = await execQuery("SELECT * FROM `subjects WHERE departmentid = ?`;", [req.params.did]);
+  console.log("[subjects/depsubjects/:did]: getting subjects data: ");
+  let qry = await execQuery("SELECT * FROM `subjects` WHERE `departmentid` = ?;", [req.params.did]);
   if (qry.error) return next(qry.error);
   return res.status(200).send(qry.results);
 };
@@ -110,5 +110,41 @@ exports.remove = async (req, res, next) => {
 
   return res
     .status(200)
-    .send(res.results[0], { message: "subject deleted successfully" });
+    .send({ message: "subject deleted successfully" });
+};
+
+/**
+ * Update a specific subject from the database
+ * Precondition:
+ *  subject id must be given as a parameter to the request.
+ *  Request body should contain: name 
+ * 
+ * Returns:
+ *  status: 201
+ *  Object: {message: ...}
+ * 
+ */
+exports.update = async (req, res, next) => {
+  const id = req.params.id;
+  
+  /* Get current subject data*/
+  let qry = await execQuery('SELECT * FROM `subjects` WHERE id=?;', [id]);
+  if(qry.error)
+      return next(qry.error);
+  if(qry.results.length === 0)
+      return res.status(404).send({message: "subject not found."});
+
+  /* Check what we need to update */
+  const name = req.body.name || qry.results[0].name;
+
+  /* Updating user data */
+  qry = await execQuery(
+      'UPDATE `subjects` \
+       SET `name` = ?\
+       WHERE id = ?;', 
+      [name, id]
+  );
+  if(qry.error) 
+      return next(qry.error);
+  return res.status(200).send({message: "subject has been successfully updated"});
 };

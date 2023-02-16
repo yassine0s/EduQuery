@@ -7,75 +7,62 @@ import {
   MDBTableBody,
   MDBBtn,
 } from "mdb-react-ui-kit";
-import * as api from "../../api/user.api";
+import * as api from "../../api/subjects.api";
 import { useNavigate } from "react-router-dom";
 
-const Users = () => {
+const Subjects = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState([]);
+  const [subject, setSubject] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get_users();
+        const response = await api.get_subjects();
         console.log(response.data[0]);
-        const userData = response.data;
-        setUser(userData);
+        const subjectData = response.data;
+        setSubject(subjectData);
         // setUser((prev) => [...prev, ...userData]);
-        console.log(userData);
       } catch (error) {
-        console.log(error);
+        console.log();
       }
     };
     fetchData();
   }, []);
   const handleEditClick = (id) => {
-    let path = `/userdetails/${id}`;
+    let path = `/subjectdetails/${id}`;
     navigate(path);
   };
+
   return (
     <div>
       <div className="mx-5">
         <br></br>
-        <MDBRow>
-          <MDBCol md="2">
-            {" "}
-            <h2>Users</h2>
-          </MDBCol>
-         
-        </MDBRow>
+        <h2>Subjects</h2>
       </div>
-      <MDBRow className="mx-2">
+      <MDBRow>
         <MDBCol md="2"></MDBCol>
         <MDBCol md="8">
           <MDBTable>
             <MDBTableHead dark>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">username</th>
-                <th scope="col">firstname</th>
-                <th scope="col">lastname</th>
-                <th scope="col">email</th>
-                <th scope="col">type</th>
+                <th scope="col">Department ID</th>
+                <th scope="col">Name</th>
               </tr>
             </MDBTableHead>
             <MDBTableBody>
-              {user.map((user, index) => (
+              {subject.map((subject, index) => (
                 <tr key={index}>
-                  <th scope="row">{user.id}</th>
-                  <th scope="col">{user.username}</th>
-                  <th scope="col">{user.firstname}</th>
-                  <th scope="col">{user.lastname}</th>
-                  <th scope="col">{user.email}</th>
-                  <th scope="col">{user.type}</th>
-
+                  <td scope="row">{subject.id}</td>
+                  <td>{subject.departmentid}</td>
+                  <td>{subject.name}</td>
                   <MDBBtn
                     className="bg-dark"
                     rounded
                     size="sm"
-                    onClick={() => handleEditClick(user.id)}
+                    onClick={() => handleEditClick(subject.id)}
                   >
                     Edit
-                  </MDBBtn>
+                  </MDBBtn>{" "}
                 </tr>
               ))}
             </MDBTableBody>
@@ -87,4 +74,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Subjects;

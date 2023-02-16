@@ -86,14 +86,14 @@ const Login = () => {
             onClick={() => handleLogin(email, password)}
           >
             <MDBIcon className="mx-2" />
-            Login
+            Login as student
           </MDBBtn>
           <p className="text-center">or:</p>
 
           <MDBBtn
             className="mb-4 w-100"
             size="sm"
-            style={{ backgroundColor: "#BDCDD6" }}
+            style={{ backgroundColor: "#BDCDD6",color:'black' }}
             onClick={handleFacultyLogin}
           >
             <MDBIcon className="mx-2" />

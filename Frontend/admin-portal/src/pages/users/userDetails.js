@@ -91,7 +91,7 @@ const UserDetails = () => {
   };
 
   return (
-    <div style={{ marginTop: "100px" }}>
+    <div style={{ marginTop: "60px" }}>
       <MDBContainer breakpoint="sm">
         <MDBRow className="g-5">
           <MDBCol>

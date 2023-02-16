@@ -48,7 +48,7 @@ const Login = () => {
           <MDBBtn
             className="mb-4 w-100"
             size="sm"
-            style={{ backgroundColor: "#BDCDD6" }}
+            style={{ backgroundColor: "#0E538C" }}
             onClick={handleLogin}
           >
             <MDBIcon className="mx-2" />

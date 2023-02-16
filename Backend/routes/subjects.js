@@ -1,4 +1,4 @@
-const {get_dsubjs,create, get_all, get_one, remove} = require("../controllers/subjects.controller") ;
+const {get_dsubjs,create, get_all, get_one, remove,update} = require("../controllers/subjects.controller") ;
 const express = require('express');
 const router = express.Router();
 
@@ -6,7 +6,8 @@ const router = express.Router();
 router.get("/", get_all);
 
 // get subjects related to department
-router.get("/depsubjecs/:did",get_dsubjs)
+router.get("/depsubjects/:did",get_dsubjs)
+
 // Get one
 router.get("/:id", get_one);
 
@@ -16,10 +17,8 @@ router.post("/", create);
 // Delete
 router.delete("/:id", remove)
 
-// Hide
-
-// Solve
-
+// update
+router.put("/:id", update)
 
 
 module.exports = router;

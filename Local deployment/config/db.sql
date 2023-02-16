@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Feb 15, 2023 at 01:58 PM
+-- Generation Time: Feb 16, 2023 at 12:51 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.0.19
 
@@ -41,18 +41,19 @@ CREATE TABLE `answers` (
 
 CREATE TABLE `departments` (
   `id` int NOT NULL,
-  `name` text NOT NULL
+  `name` text NOT NULL,
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `departments`
 --
 
-INSERT INTO `departments` (`id`, `name`) VALUES
-(1, 'Department of Automation and Applied Informatics'),
-(2, 'Department of Electronics Technology'),
-(3, 'Department of Networked Systems and Services'),
-(4, 'Department of Electron Devices');
+INSERT INTO `departments` (`id`, `name`, `description`) VALUES
+(1, 'Department of Automation and Applied Informatics', 'description'),
+(2, 'Department of Electronics Technology', ''),
+(3, 'Department of Networked Systems and Services', ''),
+(4, 'Department of Electron Devices', '');
 
 -- --------------------------------------------------------
 
