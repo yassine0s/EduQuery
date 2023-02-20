@@ -52,14 +52,14 @@ const SideBar = () => {
           </Menu.Item>
           <Menu.Item style={{ color: "black", marginTop: "50vh" }} key={5}>
             <Link to="/askquestion">
+              {" "}
+              Ask Question
               <PlusCircleOutlined
                 style={{
-                  padding: "10px",
-                  marginTop: "5px",
+                  padding: "12px",
                   fontSize: "3vh",
                 }}
               />
-              Ask Question
             </Link>
           </Menu.Item>
         </Menu>

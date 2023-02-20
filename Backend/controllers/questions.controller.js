@@ -134,6 +134,8 @@ exports.remove = async (req, res, next) => {
   let qry = await execQuery("DELETE FROM `questions` WHERE id=?", [
     req.params.id,
   ]);
+  await execQuery("ALTER TABLE `questions` AUTO_INCREMENT=1");;
+
   if (qry.error) return next(qry.error);
 
   return res.status(200).send({ message: "question deleted successfully" });

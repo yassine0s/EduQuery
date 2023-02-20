@@ -8,7 +8,7 @@ import {
   MDBContainer,
   MDBInputGroup,
 } from "mdb-react-ui-kit";
-
+import { openNotification } from "../../utils/functions";
 const UserDetails = () => {
   const { id } = useParams();
   const [user, setUser] = useState([]);
@@ -25,12 +25,11 @@ const UserDetails = () => {
     };
     fetchData();
   }, []);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [type, setType] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [info, setInfo] = useState({});
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [type, setType] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
 
   const handleLastnameChange = (e) => {
     setLastname(e.target.value);
@@ -47,26 +46,55 @@ const UserDetails = () => {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
+    let success = false;
     try {
+<<<<<<< HEAD
       setInfo({
+=======
+      const response = await api.modify_user(id, {
+>>>>>>> b082230 (adding notifications + department page design)
         username: username,
         firstname: firstname,
         lastname: lastname,
         email: email,
         type: type,
       });
+<<<<<<< HEAD
       
       await api.modify_user(id, info);
       window.location.reload();
+=======
+      if (response.status === 200) {
+        success = true;
+      }
+
+      openNotification({
+        message: "user update",
+        description: response.data.message,
+        duration: 2,
+        type: success ? "success" : "error",
+      });
+>>>>>>> b082230 (adding notifications + department page design)
     } catch (error) {
       console.log(error);
     }
   };
   const handleDelete = async (id) => {
+    let success = false;
     try {
-      await api.delete_user(id);
-      navigate('/users')
+      const response = await api.delete_user(id);
+
+      if (response.status === 200) {
+        success = true;
+        navigate("/users");
+      }
+      openNotification({
+        message: "subject delete",
+        description: response.data.message,
+        duration: 2,
+        type: success ? "success" : "error",
+      });
     } catch (error) {
       console.log(error);
     }

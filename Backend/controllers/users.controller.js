@@ -46,10 +46,10 @@ exports.get_one = async (req, res, next) => {
  *
  */
 exports.check = async (req, res, next) => {
-  const  email  = req.query.email;
-  const  password  = req.query.password;
+  const email = req.query.email;
+  const password = req.query.password;
 
-  console.log(req.query,email)
+  console.log(req.query, email);
   if (!email || !password) {
     return res.status(400).send({ message: "Missing email or password" });
   }
@@ -87,7 +87,6 @@ exports.create = async (req, res, next) => {
     !req.body.lastname ||
     !req.body.email ||
     !req.body.password
-
   ) {
     return res
       .status(500)
@@ -137,6 +136,8 @@ exports.remove = async (req, res, next) => {
   if (qry1.results.length == 0)
     return res.status(404).send({ message: "user not found" });
   let qry = await execQuery("DELETE FROM `users` WHERE id=?", [req.params.id]);
+  await execQuery("ALTER TABLE `users` AUTO_INCREMENT=1");
+
   if (qry.error) return next(qry.error);
 
   return res.status(200).send({ message: "user deleted successfully" });
@@ -147,37 +148,37 @@ exports.remove = async (req, res, next) => {
  * Precondition:
  *  user id must be given as a parameter to the request.
  *  Request body should contain: username, firstname, lastname, email or type
- * 
+ *
  * Returns:
  *  status: 201
  *  Object: {message: ...}
- * 
+ *
  */
- exports.update = async (req, res, next) => {
-    const id = req.params.id;
-    
-    /* Get current user data*/
-    let qry = await execQuery('SELECT * FROM `users` WHERE id=?;', [id]);
-    if(qry.error)
-        return next(qry.error);
-    if(qry.results.length === 0)
-        return res.status(404).send({message: "user not found."});
+exports.update = async (req, res, next) => {
+  const id = req.params.id;
 
-    /* Check what we need to update */
-    const username = req.body.username || qry.results[0].username;
-    const firstname = req.body.firstname || qry.results[0].firstname;
-    const lastname = req.body.statlastnameus || qry.results[0].lastname;
-    const email = req.body.email || qry.results[0].email;
-    const type = req.body.type || qry.results[0].type;
+  /* Get current user data*/
+  let qry = await execQuery("SELECT * FROM `users` WHERE id=?;", [id]);
+  if (qry.error) return next(qry.error);
+  if (qry.results.length === 0)
+    return res.status(404).send({ message: "user not found." });
 
-    /* Updating user data */
-    qry = await execQuery(
-        'UPDATE `users` \
+  /* Check what we need to update */
+  const username = req.body.username || qry.results[0].username;
+  const firstname = req.body.firstname || qry.results[0].firstname;
+  const lastname = req.body.statlastnameus || qry.results[0].lastname;
+  const email = req.body.email || qry.results[0].email;
+  const type = req.body.type || qry.results[0].type;
+
+  /* Updating user data */
+  qry = await execQuery(
+    "UPDATE `users` \
          SET `username` = ?, `firstname` = ? ,`lastname` = ?, `email` = ?, `type` = ? \
-         WHERE id = ?;', 
-        [username, firstname, lastname, email, type, id]
-    );
-    if(qry.error) 
-        return next(qry.error);
-    return res.status(200).send({message: "user has been successfully updated"});
+         WHERE id = ?;",
+    [username, firstname, lastname, email, type, id]
+  );
+  if (qry.error) return next(qry.error);
+  return res
+    .status(200)
+    .send({ message: "user has been successfully updated" });
 };

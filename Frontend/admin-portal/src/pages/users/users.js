@@ -41,12 +41,7 @@ const Users = () => {
             {" "}
             <h2>Users</h2>
           </MDBCol>
-          <MDBCol md="8">
-            {" "}
-            <MDBBtn className="bg-dark mb-4 mt-2" rounded size="sm">
-              Add user
-            </MDBBtn>
-          </MDBCol>
+         
         </MDBRow>
       </div>
       <MDBRow className="mx-2">
@@ -91,20 +86,6 @@ const Users = () => {
                     Edit
                   </MDBBtn>
                 </tr>
-                // <div
-                //   className="border select-none  rounded-md hover:bg-slate-200"
-                //   onClick={() =>
-                //     handleTeacherClick(
-                //       teacher.TeacherID,
-                //       teacher.TeacherName,
-                //       teacher.TeacherBio,
-                //       teacher.TeacherEmail,
-                //       teacher.TeacherPict
-                //     )
-                //   }
-                // >
-                //   {teacher.TeacherName}
-                // </div>
               ))}
             </MDBTableBody>
           </MDBTable>

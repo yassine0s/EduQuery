@@ -56,6 +56,8 @@ const { execQuery } = require("./functions");
   if (qry1.results.length == 0)
     return res.status(404).send({ message: "answer not found" });
   let qry = await execQuery("DELETE FROM `answers` WHERE id=?", [req.params.id]);
+  await execQuery("ALTER TABLE `answers` AUTO_INCREMENT=1");;
+
   if (qry.error) return next(qry.error);
 
   return res.status(200).send({ message: "answer deleted successfully" });

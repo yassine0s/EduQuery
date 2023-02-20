@@ -90,7 +90,9 @@ exports.remove = async (req, res, next) => {
     return res.status(404).send({ message: "department not found" });
   let qry = await execQuery("DELETE FROM `departments` WHERE id=?", [
     req.params.id,
-  ]);
+  ])
+  await execQuery("ALTER TABLE `departments` AUTO_INCREMENT=1");;
+
   if (qry.error) return next(qry.error);
 
   return res

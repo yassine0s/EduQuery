@@ -104,6 +104,8 @@ exports.remove = async (req, res, next) => {
   let qry = await execQuery("DELETE FROM `subjects` WHERE id=?", [
     req.params.id,
   ]);
+  await execQuery("ALTER TABLE `subjects` AUTO_INCREMENT=1");;
+
   if (qry.error) return next(qry.error);
 
   return res

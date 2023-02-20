@@ -37,7 +37,7 @@ const Header = () => {
         <MDBNavbarBrand href="/home">
           {" "}
           <img
-            src="bme.svg"
+            src="../bme.svg"
             alt=""
             style={{ width: "100px", height: "35px" }}
           />
