@@ -49,22 +49,13 @@ const UserDetails = () => {
   const handleSubmit = async () => {
     let success = false;
     try {
-<<<<<<< HEAD
-      setInfo({
-=======
       const response = await api.modify_user(id, {
->>>>>>> b082230 (adding notifications + department page design)
         username: username,
         firstname: firstname,
         lastname: lastname,
         email: email,
         type: type,
       });
-<<<<<<< HEAD
-      
-      await api.modify_user(id, info);
-      window.location.reload();
-=======
       if (response.status === 200) {
         success = true;
       }
@@ -75,7 +66,6 @@ const UserDetails = () => {
         duration: 2,
         type: success ? "success" : "error",
       });
->>>>>>> b082230 (adding notifications + department page design)
     } catch (error) {
       console.log(error);
     }
