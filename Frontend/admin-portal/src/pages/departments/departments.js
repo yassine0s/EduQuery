@@ -31,6 +31,9 @@ const Departments = () => {
     let path = `/departmentdetails/${id}`;
     navigate(path);
   };
+  const handleAddClick = () => {
+    navigate('/adddepartment');
+  };
 
   return (
     <div>
@@ -39,8 +42,14 @@ const Departments = () => {
         <h2>Departments</h2>
       </div>
       <MDBRow>
-        <MDBCol md="2"></MDBCol>
-        <MDBCol md="8">
+      <MDBCol md="2">  <MDBBtn
+          className="bg-dark mx-5 mt-3"
+          rounded
+          size="sm"
+          onClick={() => handleAddClick()}
+        >
+          Add subject
+        </MDBBtn>{" "}</MDBCol>        <MDBCol md="8">
           <MDBTable>
             <MDBTableHead dark>
               <tr>

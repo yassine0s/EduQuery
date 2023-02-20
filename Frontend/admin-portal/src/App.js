@@ -11,6 +11,8 @@ import DepartmentDetails from "./pages/departments/departmentDetails";
 import Login from "./pages/logging/login";
 import SubjectDetails from "./pages/subjects/subjectDetails";
 import UserDetails from "./pages/users/userDetails";
+import Adddepartment from "./pages/departments/addDepartment";
+import AddSubject from "./pages/subjects/addSubject";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/home" element={<Mainpage />} />
         <Route path="/departments" element={<Departments />} />{" "}
         <Route path="/users" element={<Users />} />{" "}
+        <Route path="/adddepartment" element={<Adddepartment />} />{" "}
+        <Route path="/addsubject" element={<AddSubject />} />{" "}
         <Route path="/subjects" element={<Subjects />} />{" "}
         <Route path="/departmentdetails/:id" element={<DepartmentDetails />} />{" "}
         <Route path="/subjectdetails/:id" element={<SubjectDetails />} />{" "}
