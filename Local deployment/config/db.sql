@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Feb 16, 2023 at 12:51 PM
+-- Generation Time: Feb 20, 2023 at 06:26 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.0.19
 
@@ -29,9 +29,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `answers` (
   `id` int NOT NULL,
+  `answer` text NOT NULL,
   `userid` int NOT NULL,
   `questionid` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `answers`
+--
+
+INSERT INTO `answers` (`id`, `answer`, `userid`, `questionid`) VALUES
+(1, 'this is my answer', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -50,10 +58,9 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`id`, `name`, `description`) VALUES
-(1, 'Department of Automation and Applied Informatics', 'description'),
-(2, 'Department of Electronics Technology', ''),
-(3, 'Department of Networked Systems and Services', ''),
-(4, 'Department of Electron Devices', '');
+(1, 'Department of Automation and Applied Informatics', 'Description of Department of automation and applied informatics'),
+(2, 'Department of Electronics Technology', 'Description of Department of Electronics Technology '),
+(3, 'Department of Networked Systems and Services', 'Description of Department of Networked Systems and Services');
 
 -- --------------------------------------------------------
 
@@ -95,7 +102,7 @@ CREATE TABLE `subjects` (
 --
 
 INSERT INTO `subjects` (`id`, `name`, `departmentid`) VALUES
-(1, 'Automation and Applied Computer Science', 1);
+(1, 'Automation and Applied Computer Sciences', 1);
 
 -- --------------------------------------------------------
 
@@ -118,7 +125,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `firstname`, `lastname`, `email`, `type`, `password`) VALUES
-(1, 'yaSine', 'yassine', 'Mrabet', 'yassine@gmail.com', 'student', 'yassine123');
+(1, 'yaSine', 'Yassine', 'Mrabet', 'yassine@gmail.com', 'student', 'yassine123');
 
 --
 -- Indexes for dumped tables
@@ -164,28 +171,34 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `answers`
+--
+ALTER TABLE `answers`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

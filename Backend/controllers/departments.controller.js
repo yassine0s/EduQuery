@@ -60,7 +60,7 @@ exports.create = async (req, res, next) => {
   if (qry.error) return next(qry.error);
   if (qry.results.length > 0)
     return res.status(403).send({ message: "department already exist" });
-
+else{
   /* Inserting into the database */
   qry = await execQuery("INSERT INTO `departments` (`name`, `description`) values (?,?);", [
     req.body.name,
@@ -69,6 +69,9 @@ exports.create = async (req, res, next) => {
   if (qry.error) return next(qry.error);
 
   return res.status(201).send({ message: "Successfully added a department" });
+
+}
+
 };
 
 /**

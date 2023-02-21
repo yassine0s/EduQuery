@@ -5,7 +5,7 @@ export const get_departments = async () => {
         const data = await axios.get(`/departments`);
         return data;
     } catch (e) {
-        return e?.response?.data;
+        return e.response;
     }
 }
 
@@ -14,7 +14,7 @@ export const get_department = async (id) => {
         const data = await axios.get(`/departments/${id}`);
         return data;
     } catch (e) {
-        return e?.response?.data;
+        return e.response;
     }
 }
 
@@ -23,7 +23,7 @@ export const modify_department = async (id,info) => {
         const data = await axios.put(`/departments/${id}`,info);
         return data;
     } catch (e) {
-        return e?.response?.data;
+        return e.response;
     }
 }
 export const delete_department = async (id) => {
@@ -33,5 +33,14 @@ export const delete_department = async (id) => {
         return data;
     } catch (e) {
         return e?.response?.data;
+    }
+}
+export const add_department = async (body) => {
+    try {
+        const data = await axios.post(`/departments`,body);
+        console.log(data)
+        return data;
+    } catch (e) {
+        return e.response;
     }
 }

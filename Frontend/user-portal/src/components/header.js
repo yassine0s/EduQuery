@@ -72,7 +72,7 @@ const Header = () => {
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
                     <MDBDropdownItem>
-                      <MDBNavbarLink href="#">Details</MDBNavbarLink>
+                      <MDBNavbarLink href="/profile">Details</MDBNavbarLink>
                     </MDBDropdownItem>
                     <MDBDropdownItem>
                       <MDBNavbarLink onClick={handleLogout}>

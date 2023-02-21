@@ -20,9 +20,12 @@ exports.get_all = async (req, res, next) => {
  *  Object: [subject]
  *
  */
- exports.get_dsubjs = async (req, res, next) => {
+exports.get_dsubjs = async (req, res, next) => {
   console.log("[subjects/depsubjects/:did]: getting subjects data: ");
-  let qry = await execQuery("SELECT * FROM `subjects` WHERE `departmentid` = ?;", [req.params.did]);
+  let qry = await execQuery(
+    "SELECT * FROM `subjects` WHERE `departmentid` = ?;",
+    [req.params.did]
+  );
   if (qry.error) return next(qry.error);
   return res.status(200).send(qry.results);
 };
@@ -73,15 +76,16 @@ exports.create = async (req, res, next) => {
   if (qry.error) return next(qry.error);
   if (qry.results.length > 0)
     return res.status(403).send({ message: "subject already exist" });
+  else {
+    /* Inserting into the database */
+    qry = await execQuery(
+      "INSERT INTO `subjects` (`name`, `departmentid`) values (?,?);",
+      [req.body.name, req.body.departmentid]
+    );
+    if (qry.error) return next(qry.error);
 
-  /* Inserting into the database */
-  qry = await execQuery(
-    "INSERT INTO `subjects` (`name`, `departmentid`) values (?,?);",
-    [req.body.name, req.body.departmentid]
-  );
-  if (qry.error) return next(qry.error);
-
-  return res.status(201).send({ message: "Successfully added a subject" });
+    return res.status(201).send({ message: "Successfully added a subject" });
+  }
 };
 
 /**
@@ -104,47 +108,45 @@ exports.remove = async (req, res, next) => {
   let qry = await execQuery("DELETE FROM `subjects` WHERE id=?", [
     req.params.id,
   ]);
-  await execQuery("ALTER TABLE `subjects` AUTO_INCREMENT=1");;
+  await execQuery("ALTER TABLE `subjects` AUTO_INCREMENT=1");
 
   if (qry.error) return next(qry.error);
 
-  return res
-    .status(200)
-    .send({ message: "subject deleted successfully" });
+  return res.status(200).send({ message: "subject deleted successfully" });
 };
 
 /**
  * Update a specific subject from the database
  * Precondition:
  *  subject id must be given as a parameter to the request.
- *  Request body should contain: name 
- * 
+ *  Request body should contain: name
+ *
  * Returns:
  *  status: 201
  *  Object: {message: ...}
- * 
+ *
  */
 exports.update = async (req, res, next) => {
   const id = req.params.id;
-  
+
   /* Get current subject data*/
-  let qry = await execQuery('SELECT * FROM `subjects` WHERE id=?;', [id]);
-  if(qry.error)
-      return next(qry.error);
-  if(qry.results.length === 0)
-      return res.status(404).send({message: "subject not found."});
+  let qry = await execQuery("SELECT * FROM `subjects` WHERE id=?;", [id]);
+  if (qry.error) return next(qry.error);
+  if (qry.results.length === 0)
+    return res.status(404).send({ message: "subject not found." });
 
   /* Check what we need to update */
   const name = req.body.name || qry.results[0].name;
 
   /* Updating user data */
   qry = await execQuery(
-      'UPDATE `subjects` \
+    "UPDATE `subjects` \
        SET `name` = ?\
-       WHERE id = ?;', 
-      [name, id]
+       WHERE id = ?;",
+    [name, id]
   );
-  if(qry.error) 
-      return next(qry.error);
-  return res.status(200).send({message: "subject has been successfully updated"});
+  if (qry.error) return next(qry.error);
+  return res
+    .status(200)
+    .send({ message: "subject has been successfully updated" });
 };

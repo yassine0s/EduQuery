@@ -5,7 +5,7 @@ export const get_users = async () => {
         const data = await axios.get(`/users`);
         return data;
     } catch (e) {
-        return e?.response?.data;
+        return e.response;
     }
 }
 export const get_user = async (id) => {
@@ -13,7 +13,7 @@ export const get_user = async (id) => {
         const data = await axios.get(`/users/${id}`);
         return data;
     } catch (e) {
-        return e?.response?.data;
+        return e.response;
     }
 }
 export const modify_user = async (id,info) => {
@@ -21,7 +21,7 @@ export const modify_user = async (id,info) => {
         const data = await axios.put(`/users/${id}`,info);
         return data;
     } catch (e) {
-        return e?.response?.data;
+        return e.response;
     }
 }
 export const delete_user = async (id) => {
@@ -30,6 +30,6 @@ export const delete_user = async (id) => {
         console.log(data)
         return data;
     } catch (e) {
-        return e?.response?.data;
+        return e.response;
     }
 }

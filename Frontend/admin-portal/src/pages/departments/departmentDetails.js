@@ -13,8 +13,32 @@ import {
   MDBInputGroup,
 } from "mdb-react-ui-kit";
 import { openNotification } from "../../utils/functions";
+import { Modal } from "antd";
 
 export default function DepartmentDetails() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen1, setIsModalOpen1] = useState(false);
+
+  const showModalaForSumbit = () => {
+    setIsModalOpen(true);
+  };
+  const showModalaForDelete = () => {
+    setIsModalOpen1(true);
+  };
+  const handleOkSubmit = () => {
+    setIsModalOpen(false);
+    handleSubmit();
+  };
+  const handleOkDelete = () => {
+    setIsModalOpen(false);
+    handleDelete();
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel1 = () => {
+    setIsModalOpen1(false);
+  };
   const { id } = useParams();
   const [department, setDepartment] = useState([]);
   const [subject, setSubject] = useState([]);
@@ -67,7 +91,7 @@ export default function DepartmentDetails() {
       console.log(error);
     }
   };
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     let success = false;
     try {
       const response = await api.delete_department(id);
@@ -86,7 +110,7 @@ export default function DepartmentDetails() {
       console.log(error);
     }
   };
-  const handleEditSubjectClick = async (id) => {
+  const handleEditSubjectClick = async () => {
     let path = `/subjectdetails/${id}`;
     navigate(path);
   };
@@ -123,7 +147,7 @@ export default function DepartmentDetails() {
           <MDBBtn
             className="mt-3"
             color="dark"
-            onClick={() => handleSubmit(id)}
+            onClick={() => showModalaForSumbit()}
           >
             Update Department
           </MDBBtn>
@@ -132,7 +156,7 @@ export default function DepartmentDetails() {
           <MDBBtn
             className="mt-3"
             color="dark"
-            onClick={() => handleDelete(id)}
+            onClick={() => showModalaForDelete()}
           >
             Delete Department
           </MDBBtn>
@@ -170,6 +194,24 @@ export default function DepartmentDetails() {
         </MDBCol>
         <MDBCol md="2"></MDBCol>
       </MDBRow>
+      <Modal
+        okType="default"
+        title="update"
+        open={isModalOpen}
+        onOk={handleOkSubmit}
+        onCancel={handleCancel}
+      >
+        <p>Are you sure you want to do this action</p>
+      </Modal>
+      <Modal
+        okType="default"
+        title="delete"
+        open={isModalOpen1}
+        onOk={handleOkDelete}
+        onCancel={handleCancel1}
+      >
+        <p>Are you sure you want to do this action</p>
+      </Modal>
     </div>
   );
 }

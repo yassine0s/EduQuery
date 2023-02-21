@@ -48,7 +48,7 @@ const Departments = () => {
           size="sm"
           onClick={() => handleAddClick()}
         >
-          Add subject
+          Add Department
         </MDBBtn>{" "}</MDBCol>        <MDBCol md="8">
           <MDBTable>
             <MDBTableHead dark>

@@ -8,8 +8,33 @@ import {
   MDBContainer,
   MDBInputGroup,
 } from "mdb-react-ui-kit";
+import { Modal } from "antd";
+
 import { openNotification } from "../../utils/functions";
 const UserDetails = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen1, setIsModalOpen1] = useState(false);
+
+  const showModalaForSumbit = () => {
+    setIsModalOpen(true);
+  };
+  const showModalaForDelete = () => {
+    setIsModalOpen1(true);
+  };
+  const handleOkSubmit = () => {
+    setIsModalOpen(false);
+    handleSubmit();
+  };
+  const handleOkDelete = () => {
+    setIsModalOpen(false);
+    handleDelete();
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel1 = () => {
+    setIsModalOpen1(false);
+  };
   const { id } = useParams();
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
@@ -70,7 +95,7 @@ const UserDetails = () => {
       console.log(error);
     }
   };
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     let success = false;
     try {
       const response = await api.delete_user(id);
@@ -156,15 +181,35 @@ const UserDetails = () => {
           </MDBCol>
         </MDBRow>
         <br></br>
-        <MDBBtn className="mt-3" color="dark" onClick={() => handleSubmit(id)}>
+        <MDBBtn className="mt-3" color="dark"           onClick={() => showModalaForSumbit()}
+>
           Update user
         </MDBBtn>
         <br></br>
 
-        <MDBBtn className="mt-3" color="dark" onClick={() => handleDelete(id)}>
+        <MDBBtn className="mt-3" color="dark"          onClick={() => showModalaForDelete()}
+>
           Delete user
         </MDBBtn>
       </MDBContainer>
+      <Modal
+        okType="default"
+        title="update"
+        open={isModalOpen}
+        onOk={handleOkSubmit}
+        onCancel={handleCancel}
+      >
+        <p>Are you sure you want to do this action</p>
+      </Modal>
+      <Modal
+        okType="default"
+        title="delete"
+        open={isModalOpen1}
+        onOk={handleOkDelete}
+        onCancel={handleCancel1}
+      >
+        <p>Are you sure you want to do this action</p>
+      </Modal>
     </div>
   );
 };
