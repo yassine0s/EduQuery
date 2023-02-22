@@ -2,9 +2,9 @@ import Header from "./components/header";
 import { Outlet } from "react-router-dom";
 import SideBar from "./components/sidebar";
 import { Layout, theme } from "antd";
-
+import Footer from "./components/footer";
 const layout = () => {
-  const { Content, Footer } = Layout;
+  const { Content } = Layout;
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -18,17 +18,15 @@ const layout = () => {
             style={{
               padding: "0 0",
               background: colorBgContainer,
-              height: "83vh",
+              height: "83.5vh",
             }}
           >
             <SideBar />
             <Outlet />
-            {/* <Footer /> */}
           </Layout>
+          <Footer></Footer>{" "}
+
         </Content>
-        <Footer style={{ textAlign: "center", height:'17px' }}>
-          All rights reserved ©{new Date().getFullYear()}
-        </Footer>
       </Layout>
     </>
   );

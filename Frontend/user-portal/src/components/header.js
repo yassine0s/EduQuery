@@ -41,7 +41,7 @@ const Header = () => {
           <img
             src="bme.svg"
             alt=""
-            style={{ width: "160px", height: "6vh" }}
+            style={{ width: "160px", height: "5vh" }}
           />
         </MDBNavbarBrand>
         <MDBNavbarToggler

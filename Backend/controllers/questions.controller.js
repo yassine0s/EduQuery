@@ -46,30 +46,54 @@ exports.get_own = async (req, res, next) => {
  */
 
 exports.create = async (req, res, next) => {
-  if (
-    !req.body.title ||
-    !req.body.question ||
-    !req.body.userid ||
-    !req.body.category
-  ) {
-    return res
-      .status(500)
-      .send({ message: "question details in the body are missing!" });
+  if (req.body.category == "educational") {
+    if (
+      !req.body.title ||
+      !req.body.question ||
+      !req.body.userid ||
+      !req.body.category ||
+      !req.body.departmentid ||
+      !req.body.subjectid
+    ) {
+      return res
+        .status(500)
+        .send({ message: "question details in the body are missing!" });
+    } else {
+      /* Inserting into the database */
+      qry = await execQuery(
+        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`, `category`) values (?,?,?,?,?,?);",
+        [
+          req.body.title,
+          req.body.question,
+          req.body.userid,
+          req.body.departmentid,
+          req.body.subjectid,
+          req.body.category,
+        ]
+      );
+      if (qry.error) return next(qry.error);
+      return res.status(201).send({ message: "Successfully added a question" });
+    }
+  } else {
+    if (
+      !req.body.title ||
+      !req.body.question ||
+      !req.body.userid ||
+      !req.body.category
+    ) {
+      return res
+        .status(500)
+        .send({ message: "question details in the body are missing!" });
+    } else {
+      /* Inserting into the database */
+      qry = await execQuery(
+        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`,  `category`) values (?,?,?,?,?,?);",
+        [req.body.title, req.body.question, req.body.userid,null,null, req.body.category]
+      );
+      if (qry.error) return next(qry.error);
+      return res.status(201).send({ message: "Successfully added a question" });
+    }
   }
-
-  /* Inserting into the database */
-  qry = await execQuery(
-    "INSERT INTO `questions` (`title`, `question`, `userid`, `subjectid`, `category`) values (?,?,?,?,?);",
-    [
-      req.body.title,
-      req.body.question,
-      req.body.userid,
-      req.body.subjectid,
-      req.body.category,
-    ]
-  );
-  if (qry.error) return next(qry.error);
-  return res.status(201).send({ message: "Successfully added a question" });
 };
 
 /**
@@ -134,7 +158,7 @@ exports.remove = async (req, res, next) => {
   let qry = await execQuery("DELETE FROM `questions` WHERE id=?", [
     req.params.id,
   ]);
-  await execQuery("ALTER TABLE `questions` AUTO_INCREMENT=1");;
+  await execQuery("ALTER TABLE `questions` AUTO_INCREMENT=1");
 
   if (qry.error) return next(qry.error);
 
@@ -191,17 +215,17 @@ exports.update = async (req, res, next) => {
  *
  */
 exports.get_by_title = async (req, res, next) => {
-  const title = '%'+req.query.title+'%';
+  const title = "%" + req.query.title + "%";
 
   console.log("looking for similar title as : ", title);
 
   let qry = await execQuery("SELECT * FROM `questions` WHERE title LIKE ?;", [
-    title
+    title,
   ]);
 
   if (qry.error) return next(qry.error);
-  if(qry.results.length === 0)
-  return res.status(404).send({message: "no question with that title"});
+  if (qry.results.length === 0)
+    return res.status(404).send({ message: "no question with that title" });
 
   return res.status(200).send(qry.results);
 };
