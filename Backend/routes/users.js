@@ -1,5 +1,5 @@
 
-const {create, get_all, get_one, remove,update,check} = require("../controllers/users.controller") ;
+const {create, get_all, get_one, remove,update,login,signin} = require("../controllers/users.controller") ;
 const express = require('express');
 const router = express.Router();
 
@@ -7,8 +7,8 @@ const router = express.Router();
 router.get("/", get_all);
 
 // Get by email and password
-router.get("/login", check);
-
+router.post("/login", login);
+router.get("/signin", signin);
 // Get one
 router.get("/:id", get_one);
 

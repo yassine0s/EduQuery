@@ -5,7 +5,7 @@ import { openNotification } from "../../utils/functions";
 import { Select, Button, Form, Input, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ask_question } from "../../api/question";
-
+import { useUser } from "../../utils/customHooks";
 const layout = {
   labelCol: {
     span: 8,
@@ -28,6 +28,7 @@ const Edu = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState();
 
+  const { user } = useUser();
   const [department, setDepartment] = useState([]);
   const [subjectid, setSubjectid] = useState("");
   const [subject, setSubject] = useState([]);
@@ -53,7 +54,7 @@ const Edu = () => {
       const response = await ask_question({
         title: values.question.title,
         question: values.question.question,
-        userid: 1,
+        userid: user.id,
         departmentid: values.question.department.value,
         subjectid: values.question.subject.value,
         category: "educational",
@@ -187,9 +188,6 @@ const Edu = () => {
         >
           <Input.TextArea rows={4} />
         </Form.Item>
-        <Form.Item name={["question", "tags"]} label="Tags">
-          <Input />
-        </Form.Item>
         <Form.Item
           wrapperCol={{
             ...layout.wrapperCol,
@@ -208,7 +206,7 @@ const Edu = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>Are you sure you want to do this action</p>
+        <p>Are you sure you want to add this question?</p>
       </Modal>
     </div>
   );

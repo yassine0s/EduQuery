@@ -24,13 +24,15 @@ const Header = () => {
   //   const name = account?.name ?? "";
   const [showNavColor, setShowNavColor] = useState(false);
   const handleLogout = () => {
-    instance
-      .logoutPopup({
-        postLogoutRedirectUri: "/login",
-        mainWindowRedirectUri: "/login",
-      })
-      .catch((error) => console.log(error));
-    navigate("/login");
+    localStorage.clear();
+    window.location.reload(false);
+    // instance
+    //   .logoutPopup({
+    //     postLogoutRedirectUri: "/login",
+    //     mainWindowRedirectUri: "/login",
+    //   })
+    //   .catch((error) => console.log(error));
+    // navigate("/login");
   };
   
   return (

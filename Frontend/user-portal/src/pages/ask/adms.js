@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { openNotification } from "../../utils/functions";
 import { Button, Form, Input,Modal } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../utils/customHooks";
 
 import {ask_question} from '../../api/question'
 
@@ -26,6 +27,7 @@ const validateMessages = {
 
 const Adms = () => {
     const navigate = useNavigate();
+    const { user } = useUser();
 
     const [values,setValues]= useState()
     const onFinish = (values) => {
@@ -50,7 +52,7 @@ const Adms = () => {
           const response = await ask_question({
             title: values.question.title,
             question:  values.question.question,
-            userid: 1,
+            userid: user.id,
             category: 'administration',
 
           });
@@ -104,9 +106,6 @@ const Adms = () => {
         >
           <Input.TextArea rows={4} />
         </Form.Item>
-        <Form.Item name={["question", "tags"]} label="Tags">
-          <Input />
-        </Form.Item>
         <Form.Item
           wrapperCol={{
             ...layout.wrapperCol,
@@ -125,7 +124,7 @@ const Adms = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>Are you sure you want to do this action</p>
+        <p>Are you sure you want to add this question?</p>
       </Modal>
     </div>
   );

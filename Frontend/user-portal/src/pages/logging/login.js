@@ -10,14 +10,25 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../configs/authConfig";
-import * as api from '../../api/user.api'
+import * as api from "../../api/user.api";
+import { Modal } from "antd";
+import { storeTokenInLocalStorage } from "../../api/auth";
+import { useUser } from "../../utils/customHooks";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const { user, authenticated } = useUser();
+  if (user || authenticated) {
+    navigate("/");
+  }
   const navigate = useNavigate();
   const { instance } = useMsal();
-
+  const error = () => {
+    Modal.error({
+      title: "Error while logging you in",
+      content: "Email or password is incorrect",
+    });
+  };
   const handleFacultyLogin = () => {
     instance
       .loginPopup(loginRequest)
@@ -26,32 +37,37 @@ const Login = () => {
         const name = data.account?.name;
         console.log("HELLO");
         console.log(data.account);
-        // login_create_api({email: username, name}).then(data => console.log(data));
         navigate("/");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        error();
+        console.log(error);
+      });
   };
   const setEmailChange = (e) => {
     setEmail(e.target.value);
-  }; const setPasswordChange = (e) => {
+  };
+  const setPasswordChange = (e) => {
     setPassword(e.target.value);
   };
   const handleLogin = async (email, password) => {
     try {
       const response = await api.get_user_login({
         email: email,
-        password: password
+        password: password,
       });
       if (response.status === 200) {
         // login was successful, navigate to the next page
-        navigate('/');
+        storeTokenInLocalStorage(response.data.token);
+        navigate("/");
       } else {
         // display an error message to the user
-        console.log(response.data);
+        error();
+        console.log(response);
       }
     } catch (error) {
       // display a general error message to the user
-      console.log('An error occurred during login:', error);
+      console.log("An error occurred during login:", error);
     }
   };
 
@@ -93,7 +109,7 @@ const Login = () => {
           <MDBBtn
             className="mb-4 w-100"
             size="sm"
-            style={{ backgroundColor: "#BDCDD6",color:'black' }}
+            style={{ backgroundColor: "#BDCDD6", color: "black" }}
             onClick={handleFacultyLogin}
           >
             <MDBIcon className="mx-2" />
@@ -102,6 +118,7 @@ const Login = () => {
           <div className="text-center">
             Not a member? <Link to={"/register"}>Register</Link>
           </div>
+          
         </MDBCol>
       </MDBRow>
     </MDBContainer>

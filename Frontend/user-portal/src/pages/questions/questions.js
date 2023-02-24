@@ -18,7 +18,7 @@ const questions = () => {
             <tr>
               <th scope="col">Question</th>
               <th scope="col">User</th>
-              <th scope="col">Tags</th>
+              <th scope="col">Type</th>
               <th scope="col">Date</th>
               <th scope="col">Flags</th>
             </tr>
