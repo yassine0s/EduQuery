@@ -4,7 +4,7 @@ import { get_dep_subjects } from "../../api/subject.api";
 import { openNotification } from "../../utils/functions";
 import { Select, Button, Form, Input, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
-import { ask_question } from "../../api/question";
+import { ask_question } from "../../api/question.api";
 import { useUser } from "../../utils/customHooks";
 const layout = {
   labelCol: {
@@ -54,7 +54,7 @@ const Edu = () => {
       const response = await ask_question({
         title: values.question.title,
         question: values.question.question,
-        userid: user.id,
+        userid: user?.id,
         departmentid: values.question.department.value,
         subjectid: values.question.subject.value,
         category: "educational",

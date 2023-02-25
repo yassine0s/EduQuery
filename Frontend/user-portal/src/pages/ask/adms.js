@@ -4,7 +4,7 @@ import { Button, Form, Input,Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../utils/customHooks";
 
-import {ask_question} from '../../api/question'
+import {ask_question} from '../../api/question.api'
 
 const layout = {
   labelCol: {
@@ -52,8 +52,8 @@ const Adms = () => {
           const response = await ask_question({
             title: values.question.title,
             question:  values.question.question,
-            userid: user.id,
-            category: 'administration',
+            userid: user?.id,
+            category: 'administrative',
 
           });
           if (response.status === 201) {

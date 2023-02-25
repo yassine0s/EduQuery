@@ -35,6 +35,24 @@ exports.get_own = async (req, res, next) => {
 };
 
 /**
+ * Get a question by id
+ * Precondition:
+ *  question id must be given as a parameter to the request.
+ *
+ * Returns:
+ *  status: 200
+ *  Object: question
+ *
+ */
+exports.get_one = async (req, res, next) => {
+  console.log("[questions/get_one]: getting user questions : ");
+  let qry = await execQuery("SELECT * FROM `questions` WHERE id=?;", [
+    req.params.id,
+  ]);
+  if (qry.error) return next(qry.error);
+  return res.status(200).send(qry.results);
+};
+/**
  * ask a question.
  * Request body should contain: title, userid, category
  *
@@ -61,7 +79,7 @@ exports.create = async (req, res, next) => {
     } else {
       /* Inserting into the database */
       qry = await execQuery(
-        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`, `category`) values (?,?,?,?,?,?);",
+        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`, `category`,date) values (?,?,?,?,?,?,curdate());",
         [
           req.body.title,
           req.body.question,
@@ -87,7 +105,7 @@ exports.create = async (req, res, next) => {
     } else {
       /* Inserting into the database */
       qry = await execQuery(
-        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`,  `category`) values (?,?,?,?,?,?);",
+        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`,  `category`,date) values (?,?,?,?,?,?,curdate());",
         [req.body.title, req.body.question, req.body.userid,null,null, req.body.category]
       );
       if (qry.error) return next(qry.error);
@@ -194,7 +212,7 @@ exports.update = async (req, res, next) => {
   /* Updating user data */
   qry = await execQuery(
     "UPDATE `questions` \
-       SET `title` = ?, `question` = ? ,`userid` = ?, `subjectid` = ?, `category` = ? \
+       SET `title` = ?, `question` = ? ,`userid` = ?, `subjectid` = ?, `category` = ?, `date` = curdate() \
        WHERE id = ?;",
     [title, question, userid, subjectid, category, id]
   );

@@ -1,18 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBBadge,
   MDBBtn,
   MDBTable,
   MDBTableHead,
   MDBTableBody,
+  MDBPaginationItem,
+  MDBPaginationLink,
+  MDBPagination,
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
+import { get_questions } from "../../api/question.api";
+import { get_user } from "../../api/user.api";
 
-const questions = () => {
+const Questions = () => {
+  const [pages, setPages] = useState({
+    currentPage: 1,
+    questionsPerPage: 4,
+  });
+  const handlePageClick = (page) => {
+    setPages({ ...pages, currentPage: page });
+  };
+  const [questions, setQuestions] = useState([]);
+  const totalPages = Math.ceil(questions.length / pages.questionsPerPage);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await get_questions();
+        const questionsData = response.data;
+        // Get the user IDs from questionsData
+        const userIds = questionsData.map((question) => question.userid);
+
+        // Make an API call to get the users
+        const usersResponse = await Promise.all(
+          userIds.map((userId) => get_user(userId))
+        );
+
+        const usersData = usersResponse.map((response) => response.data);
+
+        // Merge the questionsData and usersData arrays
+        const mergedData = questionsData.map((question, index) => ({
+          ...question,
+          firstname: usersData[index].firstname,
+          lastname: usersData[index].lastname,
+          email: usersData[index].email,
+        }));
+
+        setQuestions(mergedData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+  const startIndex = (pages.currentPage - 1) * pages.questionsPerPage;
+  const endIndex = startIndex + pages.questionsPerPage;
+  const currentQuestions = questions.slice(startIndex, endIndex);
+
   return (
-    <div style={{ width: "100%", margin: "20px" ,maxHeight:'100vh',overflow:'auto'}}>
+    <div
+      style={{
+        width: "100%",
+        margin: "20px",
+        maxHeight: "100vh",
+        overflow: "auto",
+      }}
+    >
       <h5 className="m-2">List of questions</h5>
-      <div >
+      <div>
         <MDBTable align="middle">
           <MDBTableHead>
             <tr>
@@ -24,47 +82,80 @@ const questions = () => {
             </tr>
           </MDBTableHead>
           <MDBTableBody>
-            <tr>
-              <td>
-                <p style={{}} className="fw-normal mb-1 ">
-                  <Link to="/openquestion">
-                    <div style={{ color: "black", overflow: "hidden" }}>
-                      Question number 1
+          {currentQuestions.map((question, index) => (
+              <tr>
+                <td>
+                  <p style={{}} className="fw-normal mb-1 ">
+                  <Link to={`/openquestion/${question?.id}`}>
+                      <div
+                        style={{
+                          color: "black",
+                          overflow: "hidden",
+                          maxWidth: 400,
+                        }}
+                      >
+                        {question.title}
+                      </div>
+                    </Link>
+                  </p>
+                </td>
+                <td>
+                  <div className="d-flex align-items-center">
+                    <img
+                      src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                      alt=""
+                      style={{ width: "45px", height: "45px" }}
+                      className="rounded-circle"
+                    />
+                    <div className="ms-3">
+                      <p className="fw-bold mb-1">
+                        {question.firstname} {question.lastname}
+                      </p>
+                      <p className="text-muted mb-0">{question.email}</p>
                     </div>
-                  </Link>
-                </p>
-              </td>
-              <td>
-                <div className="d-flex align-items-center">
-                  <img
-                    src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                    alt=""
-                    style={{ width: "45px", height: "45px" }}
-                    className="rounded-circle"
-                  />
-                  <div className="ms-3">
-                    <p className="fw-bold mb-1">John Doe</p>
-                    <p className="text-muted mb-0">john.doe@gmail.com</p>
                   </div>
-                </div>
-              </td>
-              <td>
-                <MDBBadge color="success" pill>
-                  C++
-                </MDBBadge>
-              </td>
-              <td>11/05/2022</td>
-              <td>
-                <MDBBtn color="link" rounded size="sm">
-                  Edit
-                </MDBBtn>
-              </td>
-            </tr>
+                </td>
+                <td>
+                  <MDBBadge color="success" pill>
+                    {question.category}
+                  </MDBBadge>
+                </td>
+                <td>{new Date(question.date).toLocaleDateString()}</td>
+                <td>
+                  <MDBBtn color="link" rounded size="sm">
+                    Edit
+                  </MDBBtn>
+                </td>
+              </tr>
+            ))}
           </MDBTableBody>
-        </MDBTable>
+        </MDBTable>{" "}
+        <MDBPagination style={{marginLeft:500}}>
+        <MDBPaginationItem
+          disabled={pages.currentPage === 1}
+          onClick={() => handlePageClick(pages.currentPage - 1)}
+        >
+          <MDBPaginationLink>Previous</MDBPaginationLink>
+        </MDBPaginationItem>
+        {Array.from({ length: totalPages }, (_, i) => (
+          <MDBPaginationItem
+            key={i}
+            active={i + 1 === pages.currentPage}
+            onClick={() => handlePageClick(i + 1)}
+          >
+            <MDBPaginationLink>{i + 1}</MDBPaginationLink>
+          </MDBPaginationItem>
+        ))}
+        <MDBPaginationItem
+          disabled={pages.currentPage === totalPages}
+          onClick={() => handlePageClick(pages.currentPage + 1)}
+        >
+          <MDBPaginationLink>Next</MDBPaginationLink>
+        </MDBPaginationItem>
+      </MDBPagination>
       </div>
     </div>
   );
 };
 
-export default questions;
+export default Questions;

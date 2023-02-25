@@ -21,7 +21,7 @@ function App() {
             <Route path="/" element={<Mainpage />} />
             <Route path="/questions" element={<Questions />} />{" "}
             <Route path="/askquestion" element={<Askquestion />} />{" "}
-            <Route path="/openquestion" element={<Openquestions />} />
+            <Route path="/openquestion/:id" element={<Openquestions />} />
     </Route>
   </Routes>
   );

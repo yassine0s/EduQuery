@@ -1,9 +1,13 @@
-const {create, get_all, get_by_category, remove,get_own,update,get_by_title} = require("../controllers/questions.controller") ;
+const {create, get_all, get_by_category, remove,get_own,update,get_by_title,get_one} = require("../controllers/questions.controller") ;
 const express = require('express');
 const router = express.Router();
 
 // // Get All
 router.get("/", get_all);
+
+
+// // Get All
+router.get("/:id", get_one);
 
 
 // Create

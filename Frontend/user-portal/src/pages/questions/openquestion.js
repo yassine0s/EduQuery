@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { MDBContainer } from "mdb-react-ui-kit";
 import { Card, Space } from "antd";
 import { Button, Form, Input } from "antd";
+import { useParams, useNavigate } from "react-router-dom";
+import { get_question } from "../../api/question.api";
 const layout = {
   labelCol: {
     span: 8,
@@ -23,7 +25,25 @@ const validateMessages = {
 const onFinish = (values) => {
   console.log(values);
 };
-const openquestion = () => {
+const Openquestion = () => {
+
+
+  const [question, setQuestion] = useState([]);
+  const { id } = useParams();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await get_question(id);
+        const questionData = response.data;
+        console.log(questionData[0])
+        setQuestion(questionData[0]);
+        //
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <div>
       <MDBContainer
@@ -38,7 +58,7 @@ const openquestion = () => {
             display: "flex",
           }}
         >
-          <h5>Question title</h5>
+          <h5>{question.title}</h5>
           <Card
             size="large"
             style={{
@@ -48,7 +68,7 @@ const openquestion = () => {
               wordWrap: "break-word",
             }}
           >
-            <p> content</p>
+            <p> {question.question}</p>
           </Card>
           <h6>Answers</h6>
           <Card
@@ -95,4 +115,4 @@ const openquestion = () => {
   );
 };
 
-export default openquestion;
+export default Openquestion;

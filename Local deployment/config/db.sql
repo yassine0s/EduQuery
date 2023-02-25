@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Feb 20, 2023 at 06:26 PM
+-- Generation Time: Feb 25, 2023 at 03:02 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.0.19
 
@@ -73,17 +73,20 @@ CREATE TABLE `questions` (
   `title` text NOT NULL,
   `question` text NOT NULL,
   `userid` int NOT NULL,
-  `departmentid` int NOT NULL,
-  `subjectid` int NOT NULL,
-  `category` text NOT NULL
+  `departmentid` int DEFAULT NULL,
+  `subjectid` int DEFAULT NULL,
+  `category` text NOT NULL,
+  `date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `title`, `question`, `userid`, `departmentid`, `subjectid`, `category`) VALUES
-(1, 'question1', 'I have a quick question', 1, 1, 1, 'educational');
+INSERT INTO `questions` (`id`, `title`, `question`, `userid`, `departmentid`, `subjectid`, `category`, `date`) VALUES
+(1, 'question1', 'I have a quick question', 1, 1, 1, 'educational', NULL),
+(2, 'question2', 'I have another question', 1, 1, 1, 'educational', NULL),
+(3, 'questifdon2', 'I have another question x2', 1, NULL, NULL, 'administrative', '2023-02-25');
 
 -- --------------------------------------------------------
 
@@ -102,7 +105,9 @@ CREATE TABLE `subjects` (
 --
 
 INSERT INTO `subjects` (`id`, `name`, `departmentid`) VALUES
-(1, 'Automation and Applied Computer Sciences', 1);
+(1, 'Automation and Applied Computer Sciences', 1),
+(2, 'subujecet 2', 2),
+(4, 'another subject ', 1);
 
 -- --------------------------------------------------------
 
@@ -125,7 +130,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `firstname`, `lastname`, `email`, `type`, `password`) VALUES
-(1, 'yaSine', 'Yassine', 'Mrabet', 'yassine@gmail.com', 'student', 'yassine123');
+(1, 'yaSine', 'yassine', 'Mrabet', 'yassine@gmail.com', 'student', 'yassine123'),
+(4, 'ahmed', 'ahmed', 'mrabet', 'ahmed@gmail.com', 'student', 'ahmed');
 
 --
 -- Indexes for dumped tables
@@ -186,19 +192,19 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

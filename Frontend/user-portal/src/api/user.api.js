@@ -9,6 +9,15 @@ export const get_users = async () => {
     }
 }
 
+export const get_user = async (id) => {
+    try {
+        const data = await axios.get(`/users/${id}`);
+        return data;
+    } catch (e) {
+        return e.response;
+    }
+}
+
 
 export const get_user_login = async (body) => {
     try {

@@ -18,9 +18,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user, authenticated } = useUser();
-  if (user || authenticated) {
-    navigate("/");
-  }
+
   const navigate = useNavigate();
   const { instance } = useMsal();
   const error = () => {

@@ -17,7 +17,6 @@ const Subjects = () => {
     const fetchData = async () => {
       try {
         const response = await api.get_subjects();
-        console.log(response.data[0]);
         const subjectData = response.data;
         setSubject(subjectData);
         // setUser((prev) => [...prev, ...userData]);

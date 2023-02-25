@@ -17,7 +17,6 @@ const Departments = () => {
     const fetchData = async () => {
       try {
         const response = await api.get_departments();
-        console.log(response.data[0]);
         const departmentData = response.data;
         setDepartment(departmentData);
         // setUser((prev) => [...prev, ...userData]);

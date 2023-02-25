@@ -17,7 +17,6 @@ const Users = () => {
     const fetchData = async () => {
       try {
         const response = await api.get_users();
-        console.log(response.data[0]);
         const userData = response.data;
         setUser(userData);
         // setUser((prev) => [...prev, ...userData]);

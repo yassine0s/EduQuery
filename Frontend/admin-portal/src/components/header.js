@@ -16,7 +16,7 @@ import {
   MDBDropdownToggle,
   MDBDropdownItem,
 } from "mdb-react-ui-kit";
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
 
 const Header = () => {
   const [open, setOpen] = useState(false);

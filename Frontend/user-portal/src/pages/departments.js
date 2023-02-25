@@ -20,11 +20,10 @@ const Departments = () => {
     const fetchData = async () => {
       try {
         const response = await api.get_departments();
-        console.log(response.data[0]);
         const departmentData = response.data;
         setDepartment(departmentData);
       } catch (error) {
-        console.log();
+        console.log(error);
       }
     };
 
