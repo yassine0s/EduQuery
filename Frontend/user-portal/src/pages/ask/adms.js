@@ -58,7 +58,7 @@ const Adms = () => {
           });
           if (response.status === 201) {
             success = true;
-            // navigate("/openquestion/1");
+            navigate(`/openquestion/${response.data.data}`);
           }
     
           openNotification({

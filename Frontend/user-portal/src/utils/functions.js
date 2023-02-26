@@ -6,7 +6,9 @@ const openNotification = ({ message, description, duration = 0, type }) => {
     description,
     duration,
     placement: "topRight",
-    type,
+    type, onClose: () => {
+        window.location.reload();
+      }  
   };
   notification.open(args);
 };

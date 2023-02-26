@@ -30,13 +30,13 @@ const Edu = () => {
 
   const { user } = useUser();
   const [department, setDepartment] = useState([]);
-  const [subjectid, setSubjectid] = useState("");
   const [subject, setSubject] = useState([]);
   const onFinish = (values) => {
     setValues(values);
     showModal();
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -61,7 +61,7 @@ const Edu = () => {
       });
       if (response.status === 201) {
         success = true;
-        // navigate("/openquestion/1");
+        navigate(`/openquestion/${response.data.data}`);
       }
 
       openNotification({
@@ -97,9 +97,7 @@ const Edu = () => {
     }
     console.log(e.value);
   };
-  const handleSubjChange = (e) => {
-    setSubjectid(e.value);
-  };
+ 
   return (
     <div>
       <Form
@@ -167,9 +165,6 @@ const Edu = () => {
             }}
             style={{
               width: 535,
-            }}
-            onChange={(e) => {
-              handleSubjChange(e);
             }}
             options={subject.map((subj) => ({
               value: subj.id,

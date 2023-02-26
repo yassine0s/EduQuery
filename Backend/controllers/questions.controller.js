@@ -90,7 +90,10 @@ exports.create = async (req, res, next) => {
         ]
       );
       if (qry.error) return next(qry.error);
-      return res.status(201).send({ message: "Successfully added a question" });
+      return res.status(201).send({
+        data: qry.results.insertId,
+        message: "Successfully added a question",
+      });
     }
   } else {
     if (
@@ -106,10 +109,20 @@ exports.create = async (req, res, next) => {
       /* Inserting into the database */
       qry = await execQuery(
         "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`,  `category`,date) values (?,?,?,?,?,?,curdate());",
-        [req.body.title, req.body.question, req.body.userid,null,null, req.body.category]
+        [
+          req.body.title,
+          req.body.question,
+          req.body.userid,
+          null,
+          null,
+          req.body.category,
+        ]
       );
       if (qry.error) return next(qry.error);
-      return res.status(201).send({ message: "Successfully added a question" });
+      return res.status(201).send({
+        data: qry.results.insertId,
+        message: "Successfully added a question",
+      });
     }
   }
 };

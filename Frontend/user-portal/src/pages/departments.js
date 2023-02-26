@@ -22,6 +22,8 @@ const Departments = () => {
         const response = await api.get_departments();
         const departmentData = response.data;
         setDepartment(departmentData);
+        console.log(departmentData);
+
       } catch (error) {
         console.log(error);
       }
@@ -59,7 +61,7 @@ const Departments = () => {
               light
             >
               {department.map((department, index) => (
-                <MDBListGroupItem
+                <MDBListGroupItem key={index}
                   tag="a"
                   href="#"
                   action

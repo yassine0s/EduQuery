@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Feb 25, 2023 at 03:02 AM
+-- Generation Time: Feb 26, 2023 at 03:06 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.0.19
 
@@ -31,15 +31,16 @@ CREATE TABLE `answers` (
   `id` int NOT NULL,
   `answer` text NOT NULL,
   `userid` int NOT NULL,
-  `questionid` int NOT NULL
+  `questionid` int NOT NULL,
+  `accepted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `answers`
 --
 
-INSERT INTO `answers` (`id`, `answer`, `userid`, `questionid`) VALUES
-(1, 'this is my answer', 1, 1);
+INSERT INTO `answers` (`id`, `answer`, `userid`, `questionid`, `accepted`) VALUES
+(1, 'This is my first question', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -84,8 +85,8 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `title`, `question`, `userid`, `departmentid`, `subjectid`, `category`, `date`) VALUES
-(1, 'question1', 'I have a quick question', 1, 1, 1, 'educational', NULL),
-(2, 'question2', 'I have another question', 1, 1, 1, 'educational', NULL),
+(1, 'question1', 'I have a quick question please', 1, 1, 1, 'educational', '2023-02-25'),
+(2, 'question2', 'I have a quick question about automation', 1, 1, 1, 'educational', '2023-02-25'),
 (3, 'questifdon2', 'I have another question x2', 1, NULL, NULL, 'administrative', '2023-02-25');
 
 -- --------------------------------------------------------
@@ -180,7 +181,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `departments`
