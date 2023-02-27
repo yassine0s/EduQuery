@@ -79,7 +79,7 @@ exports.create = async (req, res, next) => {
     } else {
       /* Inserting into the database */
       qry = await execQuery(
-        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`, `category`,date) values (?,?,?,?,?,?,curdate());",
+        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`, `category`,`date`,`important`) values (?,?,?,?,?,?,curdate(),0);",
         [
           req.body.title,
           req.body.question,
@@ -108,7 +108,7 @@ exports.create = async (req, res, next) => {
     } else {
       /* Inserting into the database */
       qry = await execQuery(
-        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`,  `category`,date) values (?,?,?,?,?,?,curdate());",
+        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`,  `category`,`date`,`important`) values (?,?,?,?,?,?,curdate(),0);",
         [
           req.body.title,
           req.body.question,
@@ -260,3 +260,32 @@ exports.get_by_title = async (req, res, next) => {
 
   return res.status(200).send(qry.results);
 };
+
+/**
+ * make question important.
+ *  answer id must be given as a parameter to the request.
+ *
+ * Returns:
+ *  status 201
+ *  {message: message}
+ *
+ */
+
+exports.important = async (req, res, next) => {
+  let qry1 = await execQuery("SELECT * FROM `questions` WHERE id=?;", [
+    req.params.qid,
+  ]);
+  if (qry1.results.length == 0)
+    return res.status(404).send({ message: "answer not found" });
+    let qry = await execQuery(
+    "UPDATE `questions` \
+    SET `important` = NOT `important` \
+    WHERE id = ?;",
+    [req.params.qid]
+  );
+  if (qry.error) return next(qry.error);
+  return res
+    .status(200)
+    .send({ message: "Successfully changed importance status" });
+};
+

@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
-import { Card, Space, Checkbox ,Tooltip } from "antd";
+import { Button, Card, Space, Checkbox, Tooltip ,Modal} from "antd";
 import { useParams, useNavigate } from "react-router-dom";
-import { get_question } from "../../api/question.api";
+import {
+  get_question,
+  important_question,
+  delete_question,
+} from "../../api/question.api";
 import Answer from "./answer";
 import * as api from "../../api/answer.api";
 import { useUser } from "../../utils/customHooks";
 import "../../App.css";
-import { openNotificationWoRefresh } from "../../utils/functions";
 import {
-  StarTwoTone
-} from "@ant-design/icons";
+  openNotificationWoRefresh,
+  openNotification,
+} from "../../utils/functions";
+import { StarTwoTone } from "@ant-design/icons";
 const Openquestion = () => {
   const [question, setQuestion] = useState([]);
   const [answers, setAnswers] = useState([]);
   const { user } = useUser();
   const { id } = useParams();
+  const navigate = useNavigate()
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,28 +40,80 @@ const Openquestion = () => {
     };
     fetchData();
   }, []);
- 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+    handleDelete()
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const AcceptAnswer = async (aid) => {
     let success = false;
-
     try {
-      console.log(aid);
       const res = await api.accept_answer(aid);
       if (res.status === 200) {
         success = true;
       }
       openNotificationWoRefresh({
-        message: "Accept a question",
+        message: "Accept answer",
         description: res.data.message,
         duration: 2,
-        type: success ? "success" : "error", 
+        type: success ? "success" : "error",
         onClose: () => {
           console.log("Notification closed.");
         },
       });
     } catch (error) {
       console.log(error);
-    }  };
+    }
+  };
+  const handleImportant = async () => {
+    let success = false;
+    try {
+      const res = await important_question(id);
+      if (res.status === 200) {
+        success = true;
+      }
+      openNotification({
+        message: "important question",
+        description: res.data.message,
+        duration: 2,
+        type: success ? "success" : "error",
+        onClose: () => {
+          console.log("Notification closed.");
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDelete = async () => {
+    let success = false;
+    try {
+      const res = await delete_question(id);
+      if (res.status === 200) {
+        success = true;
+        navigate('../questions')
+
+      }
+      openNotification({
+        message: "delete question",
+        description: res.data.message,
+        duration: 2,
+        type: success ? "success" : "error",
+        onClose: () => {
+          console.log("Notification closed.");
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <MDBContainer
@@ -63,56 +121,123 @@ const Openquestion = () => {
         className="m-5 "
         breakpoint="sm"
       >
-      
         <Space
           direction="vertical"
           size="middle"
           style={{
             display: "flex",
           }}
-        > 
-          <h5>{question.title}  </h5>
+        >
+          {" "}
           <MDBRow>
-        <MDBCol size='md-1'>
-        <StarTwoTone
-        style={{ marginLeft: 60, marginTop: 33,fontSize: "120%", color: "gold", cursor: "pointer"}}
-        twoToneColor={"gold"}
-    />        </MDBCol>
-        <MDBCol size='md'>
-        <Card
-            size="large"
-            style={{
-              width: "120vh",
-              minheight: "30vh",
-              marginLeft: "50px",
-              wordWrap: "break-word",
-            }}
-          >
-            <p> {question.question}</p>
-          </Card>        </MDBCol>
-      
-      </MDBRow>
-       
+            <MDBCol size="md-10">
+              {" "}
+              <h5>{question.title} </h5>
+            </MDBCol>{" "}
+            {user?.type === "admin" ? (
+              <MDBCol size="md-1">
+                {" "}
+                <Button type="primary" danger onClick={showModal}>
+                  Delete
+                </Button>
+              </MDBCol>
+            ) : (
+              <MDBCol size="md-1"> </MDBCol>
+            )}
+          </MDBRow>
+          <MDBRow>
+            {user?.type === "admin" ? (
+              <MDBCol size="md-1">
+                {question.important === 1 ? (
+                  <Tooltip title={"Make Unimportant"} color={"red"}>
+                    <StarTwoTone
+                      style={{
+                        marginTop: 33,
+                        fontSize: "120%",
+                        color: "gold",
+                        cursor: "pointer",
+                      }}
+                      onClick={handleImportant}
+                      twoToneColor="red"
+                    />{" "}
+                  </Tooltip>
+                ) : (
+                  <Tooltip title={"make Important"} color={"gold"}>
+                    <StarTwoTone
+                      style={{
+                        marginTop: 33,
+                        fontSize: "120%",
+                        color: "gold",
+                        cursor: "pointer",
+                      }}
+                      onClick={handleImportant}
+                      twoToneColor="gold"
+                    />{" "}
+                  </Tooltip>
+                )}
+              </MDBCol>
+            ) : (
+              <MDBCol size="md-1">
+                {question.important === 1 ? (
+                  <Tooltip title={"Important"} color={"red"}>
+                    <StarTwoTone
+                      style={{
+                        marginTop: 33,
+                        fontSize: "120%",
+                        color: "gold",
+                        cursor: "pointer",
+                      }}
+                      twoToneColor="red"
+                    />
+                  </Tooltip>
+                ) : (
+                  <StarTwoTone
+                    style={{
+                      marginTop: 33,
+                      fontSize: "120%",
+                      color: "gold",
+                      cursor: "pointer",
+                    }}
+                    twoToneColor="gold"
+                  />
+                )}
+              </MDBCol>
+            )}
+            <MDBCol size="md">
+              <Card
+                size="large"
+                style={{
+                  width: "120vh",
+                  minheight: "30vh",
+                  wordWrap: "break-word",
+                }}
+              >
+                <p> {question.question}</p>
+              </Card>{" "}
+            </MDBCol>
+          </MDBRow>
           <h6>Answers</h6>
           {answers.length > 0 ? (
             answers.map((answer, index) => (
               <MDBRow key={index}>
                 <MDBCol size="md-1">
                   {user?.type === "admin" ? (
-                    
-                    <Checkbox
-                      style={{ marginLeft: 60, marginTop: 33 }}
-                      className="custom-checkbox"
-                      defaultChecked={answer?.accepted}
-                      onChange={()=>{AcceptAnswer(answer?.id)}}
-                    ></Checkbox>
+                    <Tooltip title={"accept or unaccept"} color={"green"}>
+                      <Checkbox
+                        style={{ marginTop: 33 }}
+                        className="custom-checkbox"
+                        defaultChecked={answer?.accepted}
+                        onChange={() => {
+                          AcceptAnswer(answer?.id);
+                        }}
+                      ></Checkbox>{" "}
+                    </Tooltip>
                   ) : (
                     <Checkbox
                       disabled
-                      style={{ marginLeft: 60, marginTop: 33 }}
+                      style={{ marginTop: 33 }}
                       className="custom-checkbox"
                       defaultChecked={answer?.accepted}
-                      value="A"
                     ></Checkbox>
                   )}
                 </MDBCol>
@@ -122,7 +247,7 @@ const Openquestion = () => {
                     style={{
                       width: "80vh",
                       minheight: "30vh",
-                      marginLeft: "100px",
+                      marginLeft: "50px",
                       wordWrap: "break-word",
                     }}
                   >
@@ -132,13 +257,21 @@ const Openquestion = () => {
               </MDBRow>
             ))
           ) : (
-            <p style={{ marginLeft: 60 }}>No answers yet.</p>
+            <div style={{ marginLeft: 60 }}>No answers yet.</div>
           )}
-
           <h6>Add Answer</h6>
           <Answer questionid={id}></Answer>
         </Space>
       </MDBContainer>
+      <Modal
+        okType="default"
+        title="Ask"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>Are you sure you want to delete this question?</p>
+      </Modal>
     </div>
   );
 };

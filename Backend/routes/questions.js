@@ -1,4 +1,4 @@
-const {create, get_all, get_by_category, remove,get_own,update,get_by_title,get_one} = require("../controllers/questions.controller") ;
+const {create, get_all, get_by_category, remove,get_own,update,get_by_title,get_one,important} = require("../controllers/questions.controller") ;
 const express = require('express');
 const router = express.Router();
 
@@ -31,7 +31,9 @@ router.delete("/:id", remove)
 // update
 router.put("/:id", update);
 
-// Solve
+// 
+// important
+router.put("/important/:qid", important);
 
 
 

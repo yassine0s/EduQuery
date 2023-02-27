@@ -27,3 +27,22 @@ export const get_question = async (id) => {
         return e?.response;
     }
 }
+
+
+export const important_question = async (qid) => {
+    try {
+        const data = await axios.put(`/questions/important/${qid}`);
+        return data;
+    } catch (e) {
+        return e?.response;
+    }
+}
+
+export const delete_question = async (id) => {
+    try {
+        const data = await axios.delete(`/questions/${id}`);
+        return data;
+    } catch (e) {
+        return e?.response;
+    }
+}
