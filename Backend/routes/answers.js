@@ -1,4 +1,4 @@
-const {create, get_all, get_answers, remove} = require("../controllers/answers.controller") ;
+const {create, accept, get_answers, remove} = require("../controllers/answers.controller") ;
 const express = require('express');
 const router = express.Router();
 
@@ -7,6 +7,9 @@ const router = express.Router();
 
 // Get one
 router.get("/:qid", get_answers);
+
+// accept
+router.put("/:aid", accept);
 
 // Create
 router.post("/", create);

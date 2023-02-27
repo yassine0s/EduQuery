@@ -19,3 +19,13 @@ export const add_answer = async (body) => {
 }
 
 
+export const accept_answer = async (aid) => {
+    try {
+        const data = await axios.put(`/answers/${aid}`);
+        return data;
+    } catch (e) {
+        return e?.response;
+    }
+}
+
+

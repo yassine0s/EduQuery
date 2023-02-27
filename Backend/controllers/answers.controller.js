@@ -74,3 +74,31 @@ exports.remove = async (req, res, next) => {
 
   return res.status(200).send({ message: "answer deleted successfully" });
 };
+
+/**
+ * Accept an answer.
+ *  answer id must be given as a parameter to the request.
+ *
+ * Returns:
+ *  status 201
+ *  {message: message}
+ *
+ */
+
+exports.accept = async (req, res, next) => {
+  let qry1 = await execQuery("SELECT * FROM `answers` WHERE id=?;", [
+    req.params.aid,
+  ]);
+  if (qry1.results.length == 0)
+    return res.status(404).send({ message: "answer not found" });
+    let qry = await execQuery(
+    "UPDATE `answers` \
+    SET `accepted` = NOT `accepted` \
+    WHERE id = ?;",
+    [req.params.aid]
+  );
+  if (qry.error) return next(qry.error);
+  return res
+    .status(200)
+    .send({ message: "Successfully changed acceptance status" });
+};
