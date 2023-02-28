@@ -38,6 +38,14 @@ export const important_question = async (qid) => {
     }
 }
 
+export const close_question = async (qid) => {
+    try {
+        const data = await axios.put(`/questions/close/${qid}`);
+        return data;
+    } catch (e) {
+        return e?.response;
+    }
+}
 export const delete_question = async (id) => {
     try {
         const data = await axios.delete(`/questions/${id}`);

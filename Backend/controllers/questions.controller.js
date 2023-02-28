@@ -266,7 +266,7 @@ exports.get_by_title = async (req, res, next) => {
  *  answer id must be given as a parameter to the request.
  *
  * Returns:
- *  status 201
+ *  status 200
  *  {message: message}
  *
  */
@@ -276,7 +276,7 @@ exports.important = async (req, res, next) => {
     req.params.qid,
   ]);
   if (qry1.results.length == 0)
-    return res.status(404).send({ message: "answer not found" });
+    return res.status(404).send({ message: "question not found" });
     let qry = await execQuery(
     "UPDATE `questions` \
     SET `important` = NOT `important` \
@@ -289,3 +289,30 @@ exports.important = async (req, res, next) => {
     .send({ message: "Successfully changed importance status" });
 };
 
+/**
+ * make question closed.
+ *  answer id must be given as a parameter to the request.
+ *
+ * Returns:
+ *  status 200
+ *  {message: message}
+ *
+ */
+
+exports.close = async (req, res, next) => {
+  let qry1 = await execQuery("SELECT * FROM `questions` WHERE id=?;", [
+    req.params.qid,
+  ]);
+  if (qry1.results.length == 0)
+    return res.status(404).send({ message: "question not found" });
+    let qry = await execQuery(
+    "UPDATE `questions` \
+    SET `closed` = NOT `closed` \
+    WHERE id = ?;",
+    [req.params.qid]
+  );
+  if (qry.error) return next(qry.error);
+  return res
+    .status(200)
+    .send({ message: "Successfully changed closed status" });
+};

@@ -12,6 +12,18 @@ import {
 import { Link } from "react-router-dom";
 import { get_questions } from "../../api/question.api";
 import { get_user } from "../../api/user.api";
+import { StarTwoTone, IssuesCloseOutlined } from "@ant-design/icons";
+import { Tooltip,AutoComplete,
+  Button,
+  Cascader,
+  Col,
+  DatePicker,
+  Input,
+  InputNumber,
+  Row,
+  Select,
+   } from "antd";
+   const { Option } = Select;
 
 const Questions = () => {
   const [pages, setPages] = useState({
@@ -55,10 +67,14 @@ const Questions = () => {
 
     fetchData();
   }, []);
-  
+  const [filterValue, setFilterValue] = useState("");
+
+  const filteredQuestions = questions.filter((question) =>
+  question.title.toLowerCase().includes(filterValue.toLowerCase())
+);
   const startIndex = (pages.currentPage - 1) * pages.questionsPerPage;
   const endIndex = startIndex + pages.questionsPerPage;
-  const currentQuestions = questions.slice(startIndex, endIndex);
+  const currentQuestions = filteredQuestions.slice(startIndex, endIndex);
 
   return (
     <div
@@ -68,8 +84,22 @@ const Questions = () => {
         maxHeight: "100vh",
         overflow: "auto",
       }}
-    >
-      <h5 className="m-2">List of questions</h5>
+    >      
+     <h5 className="m-2">List of questions</h5>
+
+     <Input.Group style={{marginLeft:350,marginTop:40,marginBottom:40,width:900}} compact>
+      <Input
+        style={{
+          width: '50%',
+        }}
+                placeholder="Filter by question title"
+
+        defaultValue="Xihu District, Hangzhou"
+        value={filterValue}
+        onChange={(event) => setFilterValue(event.target.value)}
+      />
+
+    </Input.Group>
       <div>
         <MDBTable align="middle">
           <MDBTableHead>
@@ -82,11 +112,11 @@ const Questions = () => {
             </tr>
           </MDBTableHead>
           <MDBTableBody>
-          {currentQuestions.map((question, index) => (
+            {currentQuestions.map((question, index) => (
               <tr>
                 <td>
                   <p style={{}} className="fw-normal mb-1 ">
-                  <Link to={`/openquestion/${question?.id}`}>
+                    <Link to={`/openquestion/${question?.id}`}>
                       <div
                         style={{
                           color: "black",
@@ -116,43 +146,73 @@ const Questions = () => {
                   </div>
                 </td>
                 <td>
-                  <MDBBadge color="success" pill>
-                    {question.category}
-                  </MDBBadge>
+                  {question.category === "administrative" ? (
+                    <MDBBadge className="mx-2" color="info" light>
+                      {question.category}
+                    </MDBBadge>
+                  ) : (
+                    <MDBBadge className="mx-2" color="success">
+                      {question.category}
+                    </MDBBadge>
+                  )}
                 </td>
                 <td>{new Date(question.date).toLocaleDateString()}</td>
                 <td>
-                  <MDBBtn color="link" rounded size="sm">
-                    Edit
-                  </MDBBtn>
+                  {question.important ? (
+                    <Tooltip title={"Important"} color={"gold"}>
+                      <StarTwoTone
+                        style={{
+                          fontSize: "120%",
+                          color: "gold",
+                          cursor: "pointer",
+                        }}
+                        // onClick={handleImportant}
+                        twoToneColor="gold"
+                      />{" "}
+                    </Tooltip>
+                  ) : (
+                    <></>
+                  )}{" "}
+                  {question.closed ? (
+                    <Tooltip title={"closed"} color={"grey"}>
+                      <IssuesCloseOutlined
+                        style={{
+                          fontSize: "120%",
+                          cursor: "pointer",
+                        }}
+                      />{" "}
+                    </Tooltip>
+                  ) : (
+                    <></>
+                  )}
                 </td>
               </tr>
             ))}
           </MDBTableBody>
         </MDBTable>{" "}
-        <MDBPagination style={{marginLeft:500}}>
-        <MDBPaginationItem
-          disabled={pages.currentPage === 1}
-          onClick={() => handlePageClick(pages.currentPage - 1)}
-        >
-          <MDBPaginationLink>Previous</MDBPaginationLink>
-        </MDBPaginationItem>
-        {Array.from({ length: totalPages }, (_, i) => (
+        <MDBPagination style={{ marginLeft: 500 }}>
           <MDBPaginationItem
-            key={i}
-            active={i + 1 === pages.currentPage}
-            onClick={() => handlePageClick(i + 1)}
+            disabled={pages.currentPage === 1}
+            onClick={() => handlePageClick(pages.currentPage - 1)}
           >
-            <MDBPaginationLink>{i + 1}</MDBPaginationLink>
+            <MDBPaginationLink>Previous</MDBPaginationLink>
           </MDBPaginationItem>
-        ))}
-        <MDBPaginationItem
-          disabled={pages.currentPage === totalPages}
-          onClick={() => handlePageClick(pages.currentPage + 1)}
-        >
-          <MDBPaginationLink>Next</MDBPaginationLink>
-        </MDBPaginationItem>
-      </MDBPagination>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <MDBPaginationItem
+              key={i}
+              active={i + 1 === pages.currentPage}
+              onClick={() => handlePageClick(i + 1)}
+            >
+              <MDBPaginationLink>{i + 1}</MDBPaginationLink>
+            </MDBPaginationItem>
+          ))}
+          <MDBPaginationItem
+            disabled={pages.currentPage === totalPages}
+            onClick={() => handlePageClick(pages.currentPage + 1)}
+          >
+            <MDBPaginationLink>Next</MDBPaginationLink>
+          </MDBPaginationItem>
+        </MDBPagination>
       </div>
     </div>
   );

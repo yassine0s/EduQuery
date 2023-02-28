@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
-import { Button, Card, Space, Checkbox, Tooltip ,Modal} from "antd";
+import { Button, Card, Space, Checkbox, Tooltip, Modal } from "antd";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   get_question,
   important_question,
   delete_question,
+  close_question,
 } from "../../api/question.api";
 import Answer from "./answer";
 import * as api from "../../api/answer.api";
@@ -21,7 +22,8 @@ const Openquestion = () => {
   const [answers, setAnswers] = useState([]);
   const { user } = useUser();
   const { id } = useParams();
-  const navigate = useNavigate()
+  const [close, setClosed] = useState(0);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -47,10 +49,24 @@ const Openquestion = () => {
   };
   const handleOk = () => {
     setIsModalOpen(false);
-    handleDelete()
+    handleDelete();
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
+
+  const showModal2 = () => {
+    setIsModalOpen2(true);
+  };
+  const handleOk2 = () => {
+    setIsModalOpen2(false);
+    setClosed(!close);
+    console.log(close);
+    handleClose();
+  };
+  const handleCancel2 = () => {
+    setIsModalOpen2(false);
   };
   const AcceptAnswer = async (aid) => {
     let success = false;
@@ -92,14 +108,30 @@ const Openquestion = () => {
       console.log(error);
     }
   };
+  const handleClose = async () => {
+    let success = false;
+    try {
+      const res = await close_question(id);
+      if (res.status === 200) {
+        success = true;
+      }
+      openNotification({
+        message: "question closure",
+        description: res.data.message,
+        duration: 2,
+        type: success ? "success" : "error",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleDelete = async () => {
     let success = false;
     try {
       const res = await delete_question(id);
       if (res.status === 200) {
         success = true;
-        navigate('../questions')
-
+        navigate("../questions");
       }
       openNotification({
         message: "delete question",
@@ -178,7 +210,7 @@ const Openquestion = () => {
               </MDBCol>
             ) : (
               <MDBCol size="md-1">
-                {question.important === 1 ? (
+                {question.important ? (
                   <Tooltip title={"Important"} color={"red"}>
                     <StarTwoTone
                       style={{
@@ -261,6 +293,21 @@ const Openquestion = () => {
           )}
           <h6>Add Answer</h6>
           <Answer questionid={id}></Answer>
+          {user?.type === "admin" ? (
+            <>
+              {!question.closed  ? (
+                <Button default onClick={showModal2}>
+                  Close question
+                </Button>
+              ) : (
+                <Button default onClick={showModal2}>
+                  Open question
+                </Button>
+              )}
+            </>
+          ) : (
+            <></>
+          )}
         </Space>
       </MDBContainer>
       <Modal
@@ -271,6 +318,19 @@ const Openquestion = () => {
         onCancel={handleCancel}
       >
         <p>Are you sure you want to delete this question?</p>
+      </Modal>
+      <Modal
+        okType="default"
+        title="Ask"
+        open={isModalOpen2}
+        onOk={handleOk2}
+        onCancel={handleCancel2}
+      >
+        {question.closed === 0 ? (
+          <p>Are you sure you want to close this question?</p>
+        ) : (
+          <p>Are you sure you want to open this question?</p>
+        )}
       </Modal>
     </div>
   );
