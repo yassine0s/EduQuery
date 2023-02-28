@@ -292,21 +292,44 @@ const Openquestion = () => {
             <div style={{ marginLeft: 60 }}>No answers yet.</div>
           )}
           <h6>Add Answer</h6>
-          <Answer questionid={id}></Answer>
-          {user?.type === "admin" ? (
+          {question?.closed ? (
             <>
-              {!question.closed  ? (
-                <Button default onClick={showModal2}>
-                  Close question
-                </Button>
+              {user?.type === "admin" ? (
+                <>
+                  {!question.closed ? (
+                    <Button default onClick={showModal2}>
+                      Close question
+                    </Button>
+                  ) : (
+                    <Button default onClick={showModal2}>
+                      Open question
+                    </Button>
+                  )}
+                </>
               ) : (
-                <Button default onClick={showModal2}>
-                  Open question
-                </Button>
+                <></>
               )}
             </>
           ) : (
-            <></>
+            <>
+              {" "}
+              <Answer questionid={id}></Answer>
+              {user?.type === "admin" ? (
+                <>
+                  {!question.closed ? (
+                    <Button default onClick={showModal2}>
+                      Close question
+                    </Button>
+                  ) : (
+                    <Button default onClick={showModal2}>
+                      Open question
+                    </Button>
+                  )}
+                </>
+              ) : (
+                <></>
+              )}
+            </>
           )}
         </Space>
       </MDBContainer>
