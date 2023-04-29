@@ -7,8 +7,6 @@ import {
 } from "mdb-react-ui-kit";
 
 const MainPage = () => {
-
-
   const handleClick = () => {
     window.location.href = "https://www.bme.hu/";
   };
@@ -20,7 +18,15 @@ const MainPage = () => {
         className="m-5 "
         breakpoint="sm"
       >
-        <h2 className="mb-2">News</h2>
+      
+          <h2
+            style={{
+              fontSize: "34px",
+              fontWeight: "bold",
+            }}
+          >
+            News
+          </h2>{" "}
         <MDBCarousel showControls showIndicators>
           <MDBCarouselItem
             className="  d-block"
@@ -102,7 +108,6 @@ const MainPage = () => {
           </MDBCarouselItem>
         </MDBCarousel>
       </MDBContainer>
-   
     </div>
   );
 };
