@@ -35,15 +35,6 @@ const Login = () => {
         </MDBCol>
 
         <MDBCol col="4" md="4" className="mt-auto mb-auto">
-          <p className="text-center">Login</p>
-
-          <MDBInput
-            className="mb-4"
-            type="email"
-            id="1"
-            label="Email address"
-          />
-          <MDBInput className="mb-4" type="password" id="2" label="Password" />
 
           <MDBBtn
             className="mb-4 w-100"

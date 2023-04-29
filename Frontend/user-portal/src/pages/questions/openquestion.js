@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
-import { Button, Card, Space, Checkbox, Tooltip, Modal } from "antd";
+import { Button, Card, Space, Checkbox,Input, Tooltip, Modal } from "antd";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   get_question,
@@ -16,8 +16,12 @@ import {
   openNotificationWoRefresh,
   openNotification,
 } from "../../utils/functions";
+import { report_question } from "../../api/question.api";
 import { StarTwoTone } from "@ant-design/icons";
+
 const Openquestion = () => {
+  const [report, setReport] = useState("");
+  const [reportedQID, setReportedQ] = useState();
   const [question, setQuestion] = useState([]);
   const [answers, setAnswers] = useState([]);
   const { user } = useUser();
@@ -43,6 +47,7 @@ const Openquestion = () => {
     fetchData();
   }, []);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { TextArea } = Input;
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -54,6 +59,7 @@ const Openquestion = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const [isModalOpen2, setIsModalOpen2] = useState(false);
 
   const showModal2 = () => {
@@ -67,6 +73,35 @@ const Openquestion = () => {
   };
   const handleCancel2 = () => {
     setIsModalOpen2(false);
+  };
+  const [isModalOpen3, setIsModalOpen3] = useState(false);
+  const showModal3 = () => {
+    setIsModalOpen3(true);
+  };
+  const handleOk3 = async () => {
+    setIsModalOpen3(false);
+    let success = false;
+    try {
+      const response = await report_question(reportedQID,{report:report});
+      if (response.status === 201) {
+        success = true;
+      }
+      openNotificationWoRefresh({
+        message: "report a question",
+        description: response.data.message,
+        duration: 2,
+        type: success ? "success" : "error",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleCancel3 = () => {
+    setIsModalOpen3(false);
+  };
+  const handleReport =  (reportedQID) => {
+    showModal3();
+    setReportedQ(reportedQID)
   };
   const AcceptAnswer = async (aid) => {
     let success = false;
@@ -291,7 +326,6 @@ const Openquestion = () => {
           ) : (
             <div style={{ marginLeft: 60 }}>No answers yet.</div>
           )}
-          <h6>Add Answer</h6>
           {question?.closed ? (
             <>
               {user?.type === "admin" ? (
@@ -313,6 +347,7 @@ const Openquestion = () => {
           ) : (
             <>
               {" "}
+              <h6>Add Answer</h6>
               <Answer questionid={id}></Answer>
               {user?.type === "admin" ? (
                 <>
@@ -331,6 +366,9 @@ const Openquestion = () => {
               )}
             </>
           )}
+            <Button default onClick={()=>{handleReport(id)}}>
+                      Report question
+                    </Button>
         </Space>
       </MDBContainer>
       <Modal
@@ -354,6 +392,22 @@ const Openquestion = () => {
         ) : (
           <p>Are you sure you want to open this question?</p>
         )}
+      </Modal>
+      <Modal
+        okType="default"
+        title="Report"
+        centered
+        open={isModalOpen3}
+        onOk={handleOk3}
+        onCancel={handleCancel3}
+        width={500}
+      >
+        <TextArea
+          onChange={(e) => setReport(e.target.value)}
+          rows={4}
+          placeholder="Enter your report message"
+          maxLength={60}
+        />
       </Modal>
     </div>
   );

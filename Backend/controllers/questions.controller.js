@@ -45,7 +45,7 @@ exports.get_own = async (req, res, next) => {
  *
  */
 exports.get_one = async (req, res, next) => {
-  console.log("[questions/get_one]: getting user questions : ");
+  console.log("[questions/get_one]: getting user question : ");
   let qry = await execQuery("SELECT * FROM `questions` WHERE id=?;", [
     req.params.id,
   ]);
@@ -79,7 +79,7 @@ exports.create = async (req, res, next) => {
     } else {
       /* Inserting into the database */
       qry = await execQuery(
-        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`, `category`,`date`,`important`) values (?,?,?,?,?,?,curdate(),0);",
+        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`, `category`,`date`,`important`,`closed`) values (?,?,?,?,?,?,curdate(),0,0);",
         [
           req.body.title,
           req.body.question,
@@ -108,7 +108,7 @@ exports.create = async (req, res, next) => {
     } else {
       /* Inserting into the database */
       qry = await execQuery(
-        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`,  `category`,`date`,`important`) values (?,?,?,?,?,?,curdate(),0);",
+        "INSERT INTO `questions` (`title`, `question`, `userid`, `departmentid`,`subjectid`,  `category`,`date`,`important`,`closed`) values (?,?,?,?,?,?,curdate(),0,0);",
         [
           req.body.title,
           req.body.question,
@@ -197,6 +197,57 @@ exports.remove = async (req, res, next) => {
 };
 
 /**
+ * report question.
+ *  question id must be given as a parameter to the request.
+ * report must be given in the body
+ * Returns:
+ *  status 201
+ *  {message: message}
+ *
+ */
+
+exports.report = async (req, res, next) => {
+  let qry1 = await execQuery("SELECT * FROM `questions` WHERE id=?;", [
+    req.params.qid,
+  ]);
+  if (qry1.results.length == 0)
+    return res.status(404).send({ message: "question not found" });
+  let qry = await execQuery(
+    "INSERT INTO `reports` (`report`, `questionid`) values (?,?)",
+    [req.body.report, req.params.qid]
+  );
+  if (qry.error) return next(qry.error);
+  await execQuery("ALTER TABLE `reports` AUTO_INCREMENT=1");
+  return res
+    .status(201)
+    .send({ message: "Successfully reported question" });
+};
+/**
+ * get all reports .
+ * Returns:
+ *  status 200
+ *  {message: message}
+ *
+ */
+
+exports.getReport = async (req, res, next) => {
+  console.log("[reports/get_all]: getting all reports : ");
+  let qry = await execQuery("SELECT * FROM `reports`;", []);
+  if (qry.error) return next(qry.error);
+  return res.status(200).send(qry.results);
+};
+
+/**
+ * Get a question related to the logged in  profile
+ * Precondition:
+ *  user id must be given as a parameter to the request.
+ *
+ * Returns:
+ *  status: 200
+ *  Object: question
+ *
+ */
+/**
  * Update a specific question
  * Precondition:
  *  user id must be given as a parameter to the request.
@@ -206,6 +257,7 @@ exports.remove = async (req, res, next) => {
  *  Object: {message: ...}
  *
  */
+
 exports.update = async (req, res, next) => {
   const id = req.params.id;
 
@@ -277,7 +329,7 @@ exports.important = async (req, res, next) => {
   ]);
   if (qry1.results.length == 0)
     return res.status(404).send({ message: "question not found" });
-    let qry = await execQuery(
+  let qry = await execQuery(
     "UPDATE `questions` \
     SET `important` = NOT `important` \
     WHERE id = ?;",
@@ -305,7 +357,7 @@ exports.close = async (req, res, next) => {
   ]);
   if (qry1.results.length == 0)
     return res.status(404).send({ message: "question not found" });
-    let qry = await execQuery(
+  let qry = await execQuery(
     "UPDATE `questions` \
     SET `closed` = NOT `closed` \
     WHERE id = ?;",

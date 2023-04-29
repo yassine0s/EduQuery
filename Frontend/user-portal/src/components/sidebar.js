@@ -47,9 +47,12 @@ const SideBar = () => {
             </Link>
           </Menu.Item>
           <Menu.Item style={{ color: "black" }} key={4}>
-            <FileExclamationOutlined style={{ padding: "5px" }} />
-            Report
+            <Link to="/reports">
+              <FileExclamationOutlined style={{ padding: "5px" }} />
+              Report
+            </Link>
           </Menu.Item>
+
           <Menu.Item style={{ color: "black", marginTop: "50vh" }} key={5}>
             <Link to="/askquestion">
               {" "}

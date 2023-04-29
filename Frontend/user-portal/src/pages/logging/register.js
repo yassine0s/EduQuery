@@ -12,6 +12,11 @@ const Register = () => {
           content: "User already exists",
         });
       };
+      const success = () => {
+        Modal.success({
+          content: "Successfully registered your account",
+        });
+      };
   const navigate = useNavigate();
     const handleRegister = async (values) => {
       try {
@@ -25,7 +30,8 @@ const Register = () => {
         });
         if (response.status === 201) {
           // login was successful, navigate to the next page
-        //   navigate('/login');
+          success();
+          navigate('./login');
         } else {
           // display an error message to the user
           error();

@@ -17,6 +17,14 @@ export const get_questions = async () => {
         return e?.response;
     }
 }
+export const get_reports = async () => {
+    try {
+        const data = await axios.get(`/questions/report`);
+        return data;
+    } catch (e) {
+        return e?.response;
+    }
+}
 
 
 export const get_question = async (id) => {
@@ -41,6 +49,15 @@ export const important_question = async (qid) => {
 export const close_question = async (qid) => {
     try {
         const data = await axios.put(`/questions/close/${qid}`);
+        return data;
+    } catch (e) {
+        return e?.response;
+    }
+}
+
+export const report_question = async (qid,body) => {
+    try {
+        const data = await axios.post(`/questions/report/${qid}`,body);
         return data;
     } catch (e) {
         return e?.response;

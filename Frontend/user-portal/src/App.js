@@ -11,6 +11,7 @@ import Departments from './pages/departments';
 import Questions from './pages/questions/questions';
 import Askquestion from './pages/ask/askquestion';
 import Openquestions from './pages/questions/openquestion';
+import Reports from './pages/reports';
 function App() {
   return (
     <Routes>
@@ -22,6 +23,7 @@ function App() {
             <Route path="/questions" element={<Questions />} />{" "}
             <Route path="/askquestion" element={<Askquestion />} />{" "}
             <Route path="/openquestion/:id" element={<Openquestions />} />
+            <Route path="/reports" element={<Reports />} />
     </Route>
   </Routes>
   );

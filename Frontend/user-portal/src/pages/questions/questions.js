@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   MDBBadge,
-  MDBBtn,
   MDBTable,
   MDBTableHead,
   MDBTableBody,
@@ -10,32 +9,61 @@ import {
   MDBPagination,
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
-import { get_questions } from "../../api/question.api";
+import { get_questions,report_question } from "../../api/question.api";
+import { openNotificationWoRefresh } from "../../utils/functions";
+import { Avatar } from "antd";
 import { get_user } from "../../api/user.api";
-import { StarTwoTone, IssuesCloseOutlined } from "@ant-design/icons";
-import { Tooltip,AutoComplete,
-  Button,
-  Cascader,
-  Col,
-  DatePicker,
-  Input,
-  InputNumber,
-  Row,
-  Select,
-   } from "antd";
-   const { Option } = Select;
+import {
+  StarTwoTone,
+  IssuesCloseOutlined,
+  WarningOutlined,
+} from "@ant-design/icons";
+import { Tooltip, Input, Modal } from "antd";
 
 const Questions = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [report, setReport] = useState("");
+  const [reportedQ, setReportedQ] = useState();
+
   const [pages, setPages] = useState({
     currentPage: 1,
-    questionsPerPage: 4,
+    questionsPerPage: 3,
   });
   const handlePageClick = (page) => {
     setPages({ ...pages, currentPage: page });
   };
   const [questions, setQuestions] = useState([]);
   const totalPages = Math.ceil(questions.length / pages.questionsPerPage);
-
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = async () => {
+    setIsModalOpen(false);
+   
+    let success = false;
+    try {
+      const response = await report_question(reportedQ.id,{report:report});
+      if (response.status === 201) {
+        success = true;
+      }
+      openNotificationWoRefresh({
+        message: "report a question",
+        description: response.data.message,
+        duration: 2,
+        type: success ? "success" : "error",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  const handleReport =  (reportedQ) => {
+    showModal();
+    setReportedQ(reportedQ)
+ 
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,10 +96,11 @@ const Questions = () => {
     fetchData();
   }, []);
   const [filterValue, setFilterValue] = useState("");
+  const { TextArea } = Input;
 
   const filteredQuestions = questions.filter((question) =>
-  question.title.toLowerCase().includes(filterValue.toLowerCase())
-);
+    question.title.toLowerCase().includes(filterValue.toLowerCase())
+  );
   const startIndex = (pages.currentPage - 1) * pages.questionsPerPage;
   const endIndex = startIndex + pages.questionsPerPage;
   const currentQuestions = filteredQuestions.slice(startIndex, endIndex);
@@ -84,22 +113,23 @@ const Questions = () => {
         maxHeight: "100vh",
         overflow: "auto",
       }}
-    >      
-     <h5 className="m-2">List of questions</h5>
+    >
+      <h2 className="mt-5" style={{ marginLeft: "26px", fontSize: "26px", fontWeight: "bold" }}>List of questions</h2>
 
-     <Input.Group style={{marginLeft:350,marginTop:40,marginBottom:40,width:900}} compact>
-      <Input
-        style={{
-          width: '50%',
-        }}
-                placeholder="Filter by question title"
-
-        defaultValue="Xihu District, Hangzhou"
-        value={filterValue}
-        onChange={(event) => setFilterValue(event.target.value)}
-      />
-
-    </Input.Group>
+      <Input.Group
+        style={{ marginLeft: 350, marginTop: 40, marginBottom: 40, width: 900 }}
+        compact
+      >
+        <Input
+          style={{
+            width: "50%",
+          }}
+          placeholder="Filter by question title"
+          defaultValue="Xihu District, Hangzhou"
+          value={filterValue}
+          onChange={(event) => setFilterValue(event.target.value)}
+        />
+      </Input.Group>
       <div>
         <MDBTable align="middle">
           <MDBTableHead>
@@ -113,9 +143,9 @@ const Questions = () => {
           </MDBTableHead>
           <MDBTableBody>
             {currentQuestions.map((question, index) => (
-              <tr>
+              <tr key={index} >
                 <td>
-                  <p style={{}} className="fw-normal mb-1 ">
+                  <p className="fw-normal mb-1 ">
                     <Link to={`/openquestion/${question?.id}`}>
                       <div
                         style={{
@@ -131,12 +161,7 @@ const Questions = () => {
                 </td>
                 <td>
                   <div className="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                      alt=""
-                      style={{ width: "45px", height: "45px" }}
-                      className="rounded-circle"
-                    />
+                  <Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />
                     <div className="ms-3">
                       <p className="fw-bold mb-1">
                         {question.firstname} {question.lastname}
@@ -185,6 +210,17 @@ const Questions = () => {
                   ) : (
                     <></>
                   )}
+                  <Tooltip className="m-1" title={"report"} color={"red"}>
+                    <WarningOutlined
+                      style={{
+                        fontSize: "120%",
+                        color: "red",
+                        cursor: "pointer",
+                      }}
+                      onClick={()=>{handleReport(question)}}
+                      twoToneColor="gold"
+                    />{" "}
+                  </Tooltip>
                 </td>
               </tr>
             ))}
@@ -214,6 +250,22 @@ const Questions = () => {
           </MDBPaginationItem>
         </MDBPagination>
       </div>
+      <Modal
+        okType="default"
+        title="Report"
+        centered
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={500}
+      >
+        <TextArea
+          onChange={(e) => setReport(e.target.value)}
+          rows={4}
+          placeholder="Enter your report message"
+          maxLength={60}
+        />
+      </Modal>
     </div>
   );
 };
