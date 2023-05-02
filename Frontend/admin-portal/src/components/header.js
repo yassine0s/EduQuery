@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import {useMsal} from "@azure/msal-react";
-import {useNavigate} from "react-router-dom";
+import { useMsal } from "@azure/msal-react";
+import { useNavigate } from "react-router-dom";
 import {
   MDBNavbar,
   MDBContainer,
@@ -16,9 +16,13 @@ import {
   MDBDropdownToggle,
   MDBDropdownItem,
 } from "mdb-react-ui-kit";
+import { Modal } from "antd";
+
 const Header = () => {
+  const [open, setOpen] = useState(false);
+
   const navigate = useNavigate();
-  const { instance } = useMsal();  // const { accounts } = useMsal();
+  const { instance } = useMsal(); // const { accounts } = useMsal();
   // const account = accounts[0];
   //   const name = account?.name ?? "";
   const [showNavColor, setShowNavColor] = useState(false);
@@ -37,7 +41,7 @@ const Header = () => {
         <MDBNavbarBrand href="/home">
           {" "}
           <img
-            src="bme.svg"
+            src="../bme.svg"
             alt=""
             style={{ width: "100px", height: "35px" }}
           />
@@ -86,7 +90,10 @@ const Header = () => {
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
                     <MDBDropdownItem>
-                      <MDBNavbarLink href="#">Details</MDBNavbarLink>
+                      <MDBNavbarLink onClick={() => setOpen(true)}>
+                        {" "}
+                        Details
+                      </MDBNavbarLink>
                     </MDBDropdownItem>
                     <MDBDropdownItem>
                       <MDBNavbarLink onClick={handleLogout}>
@@ -100,6 +107,19 @@ const Header = () => {
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBContainer>
+      <Modal
+      okType='default'
+        title="User Details"
+        centered
+        open={open}
+        onOk={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+        width={500}
+      >
+        <p className="mt-3">User Name: Yassine</p>
+        <p >Full name: Yassine Mrabet</p>
+        <p>Email: yassinetoos@gmail.com</p>
+      </Modal>
     </MDBNavbar>
   );
 };

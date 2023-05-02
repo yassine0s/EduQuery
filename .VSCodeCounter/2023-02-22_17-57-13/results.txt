@@ -1,0 +1,165 @@
+Date : 2023-02-22 17:57:13
+Directory : c:\Users\yassi\OneDrive\Bureau\Thesis-project
+Total : 91 files,  69834 codes, 557 comments, 513 blanks, all 70904 lines
+
+Languages
++--------------+------------+------------+------------+------------+------------+
+| language     | files      | code       | comment    | blank      | total      |
++--------------+------------+------------+------------+------------+------------+
+| JSON         |          8 |     63,477 |          0 |          8 |     63,485 |
+| JavaScript   |         62 |      3,371 |        415 |        358 |      4,144 |
+| XML          |          5 |      2,635 |          0 |          2 |      2,637 |
+| SQL          |          1 |         90 |         94 |         47 |        231 |
+| Markdown     |          3 |         77 |          0 |         66 |        143 |
+| CSS          |          4 |         57 |          0 |         11 |         68 |
+| YAML         |          1 |         45 |          0 |          4 |         49 |
+| HTML         |          2 |         40 |         46 |          2 |         88 |
+| Shell Script |          2 |         21 |          2 |         12 |         35 |
+| Docker       |          3 |         21 |          0 |          3 |         24 |
++--------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                           | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                              |         91 |     69,834 |        557 |        513 |     70,904 |
+| . (Files)                                                                                                      |          1 |          1 |          0 |          0 |          1 |
+| Backend                                                                                                        |         20 |      2,769 |        338 |        180 |      3,287 |
+| Backend (Files)                                                                                                |          5 |      2,220 |          8 |         20 |      2,248 |
+| Backend\configs                                                                                                |          2 |         32 |          3 |          2 |         37 |
+| Backend\controllers                                                                                            |          6 |        452 |        287 |         96 |        835 |
+| Backend\middlewares                                                                                            |          1 |         11 |          4 |          2 |         17 |
+| Backend\routes                                                                                                 |          6 |         54 |         36 |         60 |        150 |
+| Frontend                                                                                                       |         68 |     66,929 |        125 |        282 |     67,336 |
+| Frontend (Files)                                                                                               |          1 |         15 |          1 |          8 |         24 |
+| Frontend\admin-portal                                                                                          |         32 |     33,589 |         60 |        142 |     33,791 |
+| Frontend\admin-portal (Files)                                                                                  |          4 |     30,669 |          0 |         36 |     30,705 |
+| Frontend\admin-portal\public                                                                                   |          4 |      1,345 |         23 |          3 |      1,371 |
+| Frontend\admin-portal\src                                                                                      |         24 |      1,575 |         37 |        103 |      1,715 |
+| Frontend\admin-portal\src (Files)                                                                              |          8 |        133 |         11 |         24 |        168 |
+| Frontend\admin-portal\src\api                                                                                  |          3 |        128 |          0 |          7 |        135 |
+| Frontend\admin-portal\src\components                                                                           |          1 |        122 |          2 |          4 |        128 |
+| Frontend\admin-portal\src\configs                                                                              |          1 |         46 |         19 |          5 |         70 |
+| Frontend\admin-portal\src\pages                                                                                |         10 |      1,122 |          5 |         60 |      1,187 |
+| Frontend\admin-portal\src\pages (Files)                                                                        |          1 |         28 |          0 |          3 |         31 |
+| Frontend\admin-portal\src\pages\departments                                                                    |          3 |        391 |          2 |         19 |        412 |
+| Frontend\admin-portal\src\pages\logging                                                                        |          1 |         57 |          1 |          6 |         64 |
+| Frontend\admin-portal\src\pages\subjects                                                                       |          3 |        352 |          1 |         19 |        372 |
+| Frontend\admin-portal\src\pages\users                                                                          |          2 |        294 |          1 |         13 |        308 |
+| Frontend\admin-portal\src\utils                                                                                |          1 |         24 |          0 |          3 |         27 |
+| Frontend\user-portal                                                                                           |         35 |     33,325 |         64 |        132 |     33,521 |
+| Frontend\user-portal (Files)                                                                                   |          4 |     30,689 |          0 |         36 |     30,725 |
+| Frontend\user-portal\public                                                                                    |          4 |      1,345 |         23 |          3 |      1,371 |
+| Frontend\user-portal\src                                                                                       |         27 |      1,291 |         41 |         93 |      1,425 |
+| Frontend\user-portal\src (Files)                                                                               |          9 |        116 |         11 |         19 |        146 |
+| Frontend\user-portal\src\api                                                                                   |          4 |         52 |          0 |          9 |         61 |
+| Frontend\user-portal\src\components                                                                            |          3 |        171 |          2 |          9 |        182 |
+| Frontend\user-portal\src\configs                                                                               |          1 |         46 |         19 |          5 |         70 |
+| Frontend\user-portal\src\pages                                                                                 |          9 |        884 |          9 |         48 |        941 |
+| Frontend\user-portal\src\pages (Files)                                                                         |          2 |        167 |          0 |          9 |        176 |
+| Frontend\user-portal\src\pages\ask                                                                             |          3 |        405 |          3 |         21 |        429 |
+| Frontend\user-portal\src\pages\logging                                                                         |          2 |        148 |          6 |         12 |        166 |
+| Frontend\user-portal\src\pages\questions                                                                       |          2 |        164 |          0 |          6 |        170 |
+| Frontend\user-portal\src\utils                                                                                 |          1 |         22 |          0 |          3 |         25 |
+| Local deployment                                                                                               |          2 |        135 |         94 |         51 |        280 |
+| Local deployment (Files)                                                                                       |          1 |         45 |          0 |          4 |         49 |
+| Local deployment\config                                                                                        |          1 |         90 |         94 |         47 |        231 |
++----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+
+| filename                                                                                                       | language     | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\Dockerfile                                               | Docker       |          7 |          0 |          1 |          8 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\build_backend.sh                                         | Shell Script |          6 |          1 |          4 |         11 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\configs\authConfig.js                                    | JavaScript   |         17 |          2 |          2 |         21 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\configs\database-config.js                               | JavaScript   |         15 |          1 |          0 |         16 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\controllers\answers.controller.js                        | JavaScript   |         33 |         21 |         11 |         65 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\controllers\departments.controller.js                    | JavaScript   |         70 |         53 |         17 |        140 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\controllers\functions.js                                 | JavaScript   |         32 |         18 |         10 |         60 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\controllers\questions.controller.js                      | JavaScript   |        138 |         72 |         22 |        232 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\controllers\subjects.controller.js                       | JavaScript   |         77 |         60 |         16 |        153 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\controllers\users.controller.js                          | JavaScript   |        102 |         63 |         20 |        185 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\middlewares\cors_handler.js                              | JavaScript   |         11 |          4 |          2 |         17 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\package-lock.json                                        | JSON         |      2,170 |          0 |          1 |      2,171 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\package.json                                             | JSON         |         23 |          0 |          1 |         24 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\routes\admin.js                                          | JavaScript   |          8 |          1 |          3 |         12 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\routes\answers.js                                        | JavaScript   |          6 |          8 |         10 |         24 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\routes\departments.js                                    | JavaScript   |          9 |          6 |         10 |         25 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\routes\questions.js                                      | JavaScript   |         11 |          8 |         16 |         35 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\routes\subjects.js                                       | JavaScript   |         10 |          6 |          9 |         25 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\routes\users.js                                          | JavaScript   |         10 |          7 |         12 |         29 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Backend\server.js                                                | JavaScript   |         14 |          7 |         13 |         34 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\Dockerfile                                 | Docker       |          7 |          0 |          1 |          8 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\README.md                                  | Markdown     |         38 |          0 |         33 |         71 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\package-lock.json                          | JSON         |     30,577 |          0 |          1 |     30,578 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\package.json                               | JSON         |         47 |          0 |          1 |         48 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\public\bme.svg                             | XML          |      1,271 |          0 |          0 |      1,271 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\public\index.html                          | HTML         |         20 |         23 |          1 |         44 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\public\login.svg                           | XML          |         46 |          0 |          1 |         47 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\public\manifest.json                       | JSON         |          8 |          0 |          1 |          9 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\App.css                                | CSS          |         33 |          0 |          6 |         39 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\App.js                                 | JavaScript   |         34 |          0 |          3 |         37 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\App.test.js                            | JavaScript   |          7 |          0 |          2 |          9 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\api\department.api.js                  | JavaScript   |         43 |          0 |          3 |         46 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\api\subjects.api.js                    | JavaScript   |         51 |          0 |          3 |         54 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\api\user.api.js                        | JavaScript   |         34 |          0 |          1 |         35 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\components\header.js                   | JavaScript   |        122 |          2 |          4 |        128 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\configs\authConfig.js                  | JavaScript   |         46 |         19 |          5 |         70 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\index.css                              | CSS          |         12 |          0 |          2 |         14 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\index.js                               | JavaScript   |         22 |          7 |          6 |         35 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\layout.js                              | JavaScript   |         12 |          0 |          2 |         14 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\pages\departments\addDepartment.js     | JavaScript   |         99 |          0 |          6 |        105 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\pages\departments\departmentDetails.js | JavaScript   |        208 |          1 |          9 |        218 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\pages\departments\departments.js       | JavaScript   |         84 |          1 |          4 |         89 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\pages\logging\login.js                 | JavaScript   |         57 |          1 |          6 |         64 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\pages\mainpage.js                      | JavaScript   |         28 |          0 |          3 |         31 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\pages\subjects\addSubject.js           | JavaScript   |        123 |          0 |          8 |        131 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\pages\subjects\subjectDetails.js       | JavaScript   |        146 |          0 |          7 |        153 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\pages\subjects\subjects.js             | JavaScript   |         83 |          1 |          4 |         88 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\pages\users\userDetails.js             | JavaScript   |        209 |          0 |          8 |        217 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\pages\users\users.js                   | JavaScript   |         85 |          1 |          5 |         91 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\reportWebVitals.js                     | JavaScript   |         12 |          0 |          2 |         14 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\setupTests.js                          | JavaScript   |          1 |          4 |          1 |          6 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\admin-portal\src\utils\functions.js                     | JavaScript   |         24 |          0 |          3 |         27 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\build_frontend.sh                                       | Shell Script |         15 |          1 |          8 |         24 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\Dockerfile                                  | Docker       |          7 |          0 |          1 |          8 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\README.md                                   | Markdown     |         38 |          0 |         33 |         71 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\package-lock.json                           | JSON         |     30,596 |          0 |          1 |     30,597 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\package.json                                | JSON         |         48 |          0 |          1 |         49 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\public\bme.svg                              | XML          |      1,271 |          0 |          0 |      1,271 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\public\index.html                           | HTML         |         20 |         23 |          1 |         44 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\public\login.svg                            | XML          |         46 |          0 |          1 |         47 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\public\manifest.json                        | JSON         |          8 |          0 |          1 |          9 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\App.css                                 | CSS          |          0 |          0 |          1 |          1 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\App.js                                  | JavaScript   |         29 |          0 |          2 |         31 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\App.test.js                             | JavaScript   |          7 |          0 |          2 |          9 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\api\department.api.js                   | JavaScript   |         17 |          0 |          2 |         19 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\api\question.js                         | JavaScript   |          9 |          0 |          1 |         10 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\api\subject.api.js                      | JavaScript   |          9 |          0 |          1 |         10 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\api\user.api.js                         | JavaScript   |         17 |          0 |          5 |         22 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\components\footer.js                    | JavaScript   |         15 |          0 |          2 |         17 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\components\header.js                    | JavaScript   |         89 |          2 |          3 |         94 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\components\sidebar.js                   | JavaScript   |         67 |          0 |          4 |         71 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\configs\authConfig.js                   | JavaScript   |         46 |         19 |          5 |         70 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\index.css                               | CSS          |         12 |          0 |          2 |         14 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\index.js                                | JavaScript   |         22 |          7 |          6 |         35 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\layout.js                               | JavaScript   |         32 |          0 |          3 |         35 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\logo.svg                                | XML          |          1 |          0 |          0 |          1 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\pages\ask\adms.js                       | JavaScript   |        125 |          1 |          9 |        135 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\pages\ask\askquestion.js                | JavaScript   |         69 |          0 |          7 |         76 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\pages\ask\edu.js                        | JavaScript   |        211 |          2 |          5 |        218 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\pages\departments.js                    | JavaScript   |        116 |          0 |          6 |        122 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\pages\logging\login.js                  | JavaScript   |        100 |          5 |          8 |        113 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\pages\logging\register.js               | JavaScript   |         48 |          1 |          4 |         53 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\pages\mainpage.js                       | JavaScript   |         51 |          0 |          3 |         54 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\pages\questions\openquestion.js         | JavaScript   |         96 |          0 |          3 |         99 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\pages\questions\questions.js            | JavaScript   |         68 |          0 |          3 |         71 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\reportWebVitals.js                      | JavaScript   |         12 |          0 |          2 |         14 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\setupTests.js                           | JavaScript   |          1 |          4 |          1 |          6 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Frontend\user-portal\src\utils\functions.js                      | JavaScript   |         22 |          0 |          3 |         25 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Local deployment\config\db.sql                                   | SQL          |         90 |         94 |         47 |        231 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\Local deployment\docker-compose.yml                              | YAML         |         45 |          0 |          4 |         49 |
+| c:\Users\yassi\OneDrive\Bureau\Thesis-project\README.md                                                        | Markdown     |          1 |          0 |          0 |          1 |
+| Total                                                                                                          |              |     69,834 |        557 |        513 |     70,904 |
++----------------------------------------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+

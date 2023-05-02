@@ -1,4 +1,4 @@
-const {create, get_all, get_one, remove} = require("../controllers/departments.controller") ;
+const {create, get_all, get_one, remove,update} = require("../controllers/departments.controller") ;
 const express = require('express');
 const router = express.Router();
 
@@ -14,7 +14,8 @@ router.post("/", create);
 // Delete
 router.delete("/:id", remove)
 
-// Hide
+// update
+router.put("/:id", update)
 
 // Solve
 

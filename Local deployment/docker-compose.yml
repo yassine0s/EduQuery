@@ -11,7 +11,7 @@
       adminPortal:
           image: adminportal:latest
           ports:
-          - 3000:3000
+          - 3001:3001
           links:
           - apiServer
           command: ["npm","start"]
@@ -19,7 +19,7 @@
       userPortal:
           image: userportal:latest
           ports:
-          - 3001:3001
+          - 3000:3000
           links:
           - apiServer
           command: ["npm","start"]

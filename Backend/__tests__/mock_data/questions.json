@@ -1,0 +1,20 @@
+  [
+    {
+      "title":"this is a question",
+      "question": "I have q question ",
+      "userid": 1,
+      "category": "administrative",
+      "subjectid": null,
+      "departmentid": null
+    
+    },
+    {
+      "title":"question 2",
+      "question": "I have another question x2",
+      "userid": 1,
+      "category": "administrative",
+      "subjectid": null,
+      "departmentid": null
+    
+    }
+  ]
