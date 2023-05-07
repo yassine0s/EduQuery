@@ -10,38 +10,51 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../configs/authConfig";
-import * as api from "../../api/user.api";
-import { Modal } from "antd";
-import { storeTokenInLocalStorage } from "../../api/auth";
 import { useUser } from "../../utils/customHooks";
+import * as api from "../../api/user.api";
+import { Modal, Input } from "antd";
+import { storeTokenInLocalStorage } from "../../api/auth";
+import { UserOutlined } from '@ant-design/icons';
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [resetemail, setRestEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user, authenticated } = useUser();
-
+  // const { user, authenticated } = useUser();
+  const handleReset = () => {
+    console.log(resetemail);
+    api.reset(resetemail)
+    console.log(resetemail)
+    success();
+  };
   const navigate = useNavigate();
-  const { instance } = useMsal();
+  // const { instance } = useMsal();
   const error = () => {
     Modal.error({
-      title: "Error while logging you in",
+      title: "Login Error",
       content: "Email or password is incorrect",
     });
   };
-  const handleFacultyLogin = () => {
-    instance
-      .loginPopup(loginRequest)
-      .then((data) => {
-        const username = data.account?.username;
-        const name = data.account?.name;
-        console.log("HELLO");
-        console.log(data.account);
-        navigate("/");
-      })
-      .catch((error) => {
-        error();
-        console.log(error);
-      });
+  const success = () => {
+    Modal.success({
+      title: "Email sent containing the password",
+      content: "Email sent containing the password",
+    });
   };
+  // const handleFacultyLogin = () => {
+  //   instance
+  //     .loginPopup(loginRequest)
+  //     .then((data) => {
+  //       const username = data.account?.username;
+  //       const name = data.account?.name;
+  //       console.log("HELLO");
+  //       console.log(data.account);
+  //       navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       error();
+  //       console.log(error);
+  //     });
+  // };
   const setEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -68,7 +81,18 @@ const Login = () => {
       console.log("An error occurred during login:", error);
     }
   };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+    handleReset()
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <MDBContainer fluid className="p-3 my-5">
       <MDBRow>
@@ -100,11 +124,14 @@ const Login = () => {
             onClick={() => handleLogin(email, password)}
           >
             <MDBIcon className="mx-2" />
-            Login as student
+            Login
           </MDBBtn>
-          <p className="text-center">or:</p>
+          <div className="text-center">
+            Forgot password? <Link onClick={showModal}>Reset</Link>
+          </div>
+          <p className="text-center"></p>
 
-          <MDBBtn
+          {/* <MDBBtn
             className="mb-4 w-100"
             size="sm"
             style={{ backgroundColor: "#BDCDD6", color: "black" }}
@@ -112,13 +139,28 @@ const Login = () => {
           >
             <MDBIcon className="mx-2" />
             Login with University Email
-          </MDBBtn>
+          </MDBBtn> */}
           <div className="text-center">
             Not a member? <Link to={"/register"}>Register</Link>
           </div>
-          
         </MDBCol>
       </MDBRow>
+      <Modal
+        okType="default"
+        title="Reset password"
+        centered
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={500}
+      >
+        <Input
+          onChange={(e) => setRestEmail(e.target.value)}
+          size="large"
+          placeholder="Enter your email Address"
+          prefix={<UserOutlined />}
+        />
+      </Modal>
     </MDBContainer>
   );
 };

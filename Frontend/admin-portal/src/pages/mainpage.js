@@ -1,31 +1,107 @@
-import React from 'react';
-import { Carousel } from 'antd';
+import React from "react";
+import {
+  MDBCarousel,
+  MDBCarouselItem,
+  MDBContainer,
+  MDBBtn,
+} from "mdb-react-ui-kit";
 
-const contentStyle = {
-    height: '90vh',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#BDCDD6',
+const Mainpage = () => {
+  const handleClick = () => {
+    window.location.href = "https://www.bme.hu/";
   };
-const mainpage = () => {
-    return (
-        
-            <Carousel effect="fade" >
-    <div>
-      <h3 style={contentStyle}>1</h3>
+
+  return (
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "90vh" }}>
+      <MDBContainer
+        style={{ width: "90%", height: "90%", overflow: "auto", margin: "auto" }}
+        className="m-5 "
+        breakpoint="sm"
+      >
+        <div></div>
+        <MDBCarousel showControls showIndicators>
+          <MDBCarouselItem
+            className="  d-block"
+            itemId={1}
+            style={{ height: "80vh", width: "200vh" }}
+            src="../bme-news.jpg"
+            alt="..."
+          >
+            <p
+              style={{
+                backgroundColor: "#E0E0E0",
+                color: "black",
+                font: "bold",
+              }}
+            >
+              Registration is opened : Now you can start registering for subject
+              through the Neptun site.
+            </p>
+            <MDBBtn
+              onClick={handleClick}
+              rounded
+              className="text-dark"
+              color="secondary"
+            >
+              Details
+            </MDBBtn>{" "}
+          </MDBCarouselItem>
+          <MDBCarouselItem
+            className="  d-block"
+            itemId={2}
+            style={{ height: "80vh", width: "200vh" }}
+            src="../bme2.jpg"
+            alt="..."
+          >
+            <p
+              style={{
+                backgroundColor: "#E0E0E0",
+                color: "black",
+                font: "bold",
+              }}
+            >
+              Graduation date is set: You can find here all upcoming date
+              concerning the Graduation.
+            </p>{" "}
+            <MDBBtn
+              onClick={handleClick}
+              rounded
+              className="text-dark"
+              color="secondary"
+            >
+              Details
+            </MDBBtn>{" "}
+          </MDBCarouselItem>
+          <MDBCarouselItem
+            className="  d-block"
+            itemId={3}
+            style={{ height: "80vh", width: "200vh" }}
+            src="../bme3.jpg"
+            alt="..."
+          >
+            <p
+              style={{
+                backgroundColor: "#E0E0E0",
+                color: "black",
+                font: "bold",
+              }}
+            >
+              Bme sport center Now bme sport center is opened you can check
+              details through this page
+            </p>{" "}
+            <MDBBtn
+              onClick={handleClick}
+              rounded
+              className="text-dark"
+              color="secondary"
+            >
+              Details
+            </MDBBtn>{" "}
+          </MDBCarouselItem>
+        </MDBCarousel>
+      </MDBContainer>
     </div>
-    <div>
-      <h3 style={contentStyle}>2</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>3</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>4</h3>
-    </div>
-  </Carousel>
-    );
+  );
 };
 
-export default mainpage;
+export default Mainpage;

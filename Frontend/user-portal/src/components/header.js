@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import {useMsal} from "@azure/msal-react";
-import {useNavigate} from "react-router-dom";
+// import {useMsal} from "@azure/msal-react";
+// import {useNavigate} from "react-router-dom";
 import '../App.css'
 import {
   MDBNavbar,
@@ -19,13 +19,14 @@ import {
 } from "mdb-react-ui-kit";
 import { Modal } from "antd";
 import { useUser } from "../utils/customHooks";
+import { Avatar } from "antd";
 
 const Header = () => {
   const {user} = useUser();
   const [open, setOpen] = useState(false);
 
-  const navigate = useNavigate();
-  const { instance } = useMsal();  // const { accounts } = useMsal();
+  // const navigate = useNavigate();
+  // const { instance } = useMsal();  // const { accounts } = useMsal();
   // const account = accounts[0];
   //   const name = account?.name ?? "";
   const [showNavColor, setShowNavColor] = useState(false);
@@ -70,13 +71,9 @@ const Header = () => {
                     className="nav-link d-flex align-items-center"
                     href="#"
                   >
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img(31).webp"
-                      className="rounded-circle"
-                      height="47"
-                      alt="Avatar"
-                      loading="lazy"
-                    />
+                     <Avatar
+                  src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${1}`}
+                />
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
                     <MDBDropdownItem>

@@ -22,6 +22,7 @@ export const get_user = async (id) => {
 export const get_user_login = async (body) => {
     try {
         const data = await axios.post(`/users/login`,body);
+        console.log(data)
         return data;
 
     } catch (e) {
@@ -37,3 +38,30 @@ export const register = async (body) => {
         return e.response;
     }
 }
+
+
+export const reset = async (body) => {
+    try {
+      const data = await axios.post(`/users/reset`,{email:body});
+      return data;
+    } catch (e) {
+        return e.response;
+    }
+  };
+
+  export const changepass = async (body,token) => {
+    try {
+        const response = await axios({
+            method: 'PUT',
+            url: `/users/changepass`,
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+            data:
+            {password:body}
+          });
+      return response;
+    } catch (e) {
+        return e.response;
+    }
+  };

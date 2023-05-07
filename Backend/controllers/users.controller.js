@@ -1,7 +1,7 @@
 const { execQuery } = require("./functions");
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
-
+var transporter = require("../configs/nodemailer")
 const { JWT_SECRET, JWT_EXPIRES_IN } = process.env;
 
 /**
@@ -59,13 +59,55 @@ exports.login = async (req, res, next) => {
   } else {
     try {
       const qry = await execQuery(
-        "SELECT * FROM `users` WHERE email = ? AND password = ?",
-        [email, password]
+        "SELECT * FROM `users` WHERE email = ? ",
+        [email]
       );
       if (qry.results.length === 0) {
         return res.status(404).send({ message: "User not found" });
       }
       console.log(qry.results[0]);
+      /* Compare the password */
+      const isMatch = await bcrypt.compare(password, qry.results[0].password);
+      if (!isMatch) {
+        return res.status(400).send({ message: "Invalid email or password" });
+      }
+
+      const token = jwt.sign(
+        {
+          id: qry.results[0].id,
+          email: qry.results[0].email,
+        },
+        "JWT_SECRET",
+        { expiresIn: "1 day" }
+      );
+      return res.status(200).json({ token });
+    } catch (error) {
+      return next(error);
+    }
+  }
+};
+exports.admin_login = async (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  console.log(req.body, email);
+  if (!email || !password) {
+    return res.status(400).send({ message: "Missing email or password" });
+  } else {
+    try {
+      const qry = await execQuery(
+        "SELECT * FROM `users` WHERE email = ? AND type = 'admin'",
+        [email]
+      );
+      if (qry.results.length === 0) {
+        return res.status(404).send({ message: "User not found" });
+      }
+      console.log(qry.results[0]);
+      /* Compare the password */
+      const isMatch = await bcrypt.compare(password, qry.results[0].password);
+      if (!isMatch) {
+        return res.status(400).send({ message: "Invalid email or password or you are not admin" });
+      }
 
       const token = jwt.sign(
         {
@@ -99,7 +141,10 @@ exports.signin = async (req, res, next) => {
     const token = String(req?.headers?.authorization?.replace("Bearer ", ""));
     const decoded = jwt.verify(token, "JWT_SECRET");
 
-    console.log('----------------------------------------------------------------------------------------------------------',decoded)
+    console.log(
+      "----------------------------------------------------------------------------------------------------------",
+      decoded
+    );
     const qry = await execQuery("SELECT * FROM `users` WHERE email = ?", [
       decoded.email,
     ]);
@@ -136,6 +181,7 @@ exports.create = async (req, res, next) => {
       .status(500)
       .send({ message: "user details in the body are missing!" });
   }
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
   /* Check if the user already exists */
   let qry = await execQuery("SELECT * FROM `users` WHERE email=?;", [
@@ -154,12 +200,12 @@ exports.create = async (req, res, next) => {
       req.body.lastname,
       req.body.email,
       req.body.type,
-      req.body.password,
+      hashedPassword,
     ]
   );
   if (qry.error) return next(qry.error);
-  const token = jwt.sign({ user: qry.results[0] }, 'JWT_SECRET', {
-    expiresIn:  "1 day",
+  const token = jwt.sign({ user: qry.results[0] }, "JWT_SECRET", {
+    expiresIn: "1 day",
   });
 
   return res
@@ -231,3 +277,77 @@ exports.update = async (req, res, next) => {
     .status(200)
     .send({ message: "user has been successfully updated" });
 };
+
+/**
+ * Request password
+ * Precondition:
+ *  email must be given in the body
+ *
+ * Returns:
+ *  status: 200
+ *  Object: {message: ...}
+ *
+ */
+exports.reset = async (req, res, next) => {
+  const email = req.body.email;
+
+  try {
+    const qry = await execQuery(
+      "SELECT * FROM `users` WHERE email = ?",
+      [email]
+    );
+    if (qry.results.length === 0) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    const token = jwt.sign(
+      {
+        email: email,
+      },
+      "JWT_SECRET",
+      { expiresIn: "1 day" }
+    );
+
+    const resetLink = `http://localhost:3000/reset_password/${token}`;
+
+    const mailOptions = {
+      from: 'yassitoos@gmail.com',
+      to: email,
+      subject: 'Password Reset Request',
+      text: `Click this link to reset your password: ${resetLink}`
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return res.status(200).send({ message: "Password sent via email" });
+  } catch (error) {
+    return next(error);
+  }
+};
+exports.changepass = async (req, res, next) => {
+  try {
+    const token = String(req?.headers?.authorization?.replace("Bearer ", ""));
+    const decoded = jwt.verify(token, "JWT_SECRET");
+
+    const qry = await execQuery("SELECT * FROM `users` WHERE email = ?", [
+      decoded.email,
+    ]);
+    if (qry.results.length === 0) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+  /* Updating user data */
+  qry = await execQuery(
+    "UPDATE `users` \
+         SET `password` = ? \
+         WHERE email = ?;",
+    [hashedPassword, decoded.email]
+  );
+  if (qry.error) return next(qry.error);
+  return res
+    .status(200)
+    .send({ message: "password has been successfully updated" })
+  
+  } catch (error) {
+    return next(error);
+  }}

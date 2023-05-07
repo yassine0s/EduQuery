@@ -12,11 +12,13 @@ import Questions from './pages/questions/questions';
 import Askquestion from './pages/ask/askquestion';
 import Openquestions from './pages/questions/openquestion';
 import Reports from './pages/reports';
+import ResetPassword from './pages/logging/reset_password';
 function App() {
   return (
     <Routes>
     <Route path="/login" element={<Login />} />{" "}
     <Route path="/register" element={<Register />} />{" "}
+    <Route path="/reset_password/:token" element={<ResetPassword />} />
     <Route  path="/" element={<Layout />}>
             <Route path="/departments" element={<Departments />} />{" "}  
             <Route path="/" element={<Mainpage />} />

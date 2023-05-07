@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Apr 29, 2023 at 02:55 PM
+-- Generation Time: May 05, 2023 at 03:18 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.0.19
 
@@ -156,8 +156,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `firstname`, `lastname`, `email`, `type`, `password`) VALUES
-(1, 'yaSine', 'yassine', 'Mrabet', 'yassine@gmail.com', 'admin', 'yassine123'),
-(4, 'ahmed', 'ahmed', 'mrabet', 'ahmed@gmail.com', 'student', 'ahmed');
+(1, 'yaSine', 'yassine', 'Mrabet', 'yassine@gmail.com', 'admin', '$2a$10$yUsxgDZb5IIlOuRK0FNsR.p4y3.6N4kHJTTXRDCngMsb85D1mYt1O'),
+(4, 'ahmed', 'ahmed', 'mrabet', 'ahmed@gmail.com', 'student', '$2a$10$yUsxgDZb5IIlOuRK0FNsR.p4y3.6N4kHJTTXRDCngMsb85D1mYt1O'),
+(9, 'yassintoos', 'Yassine', 'Mrabet', 'yassintoos@gmail.com', 'student', '$2a$10$s0wJVdvZgV2NfubvDloDh.96p0/ww3bWcT5YCvAOBk9tSjC.wPoLu');
 
 --
 -- Indexes for dumped tables
@@ -243,7 +244,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

@@ -6,27 +6,26 @@ import {
   MDBBtn,
 } from "mdb-react-ui-kit";
 
-const MainPage = () => {
+const Mainpage = () => {
   const handleClick = () => {
     window.location.href = "https://www.bme.hu/";
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
       <MDBContainer
-        style={{ width: "90%", height: "90%", overflow: "auto" }}
+        style={{ width: "90%", height: "90%", overflow: "auto", margin: "auto" }}
         className="m-5 "
         breakpoint="sm"
       >
-      
-          <h2
-            style={{
-              fontSize: "34px",
-              fontWeight: "bold",
-            }}
-          >
-            News
-          </h2>{" "}
+        <h2
+          style={{
+            fontSize: "34px",
+            fontWeight: "bold",
+          }}
+        >
+          News
+        </h2>{" "}
         <MDBCarousel showControls showIndicators>
           <MDBCarouselItem
             className="  d-block"
@@ -112,4 +111,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default Mainpage;
