@@ -27,18 +27,20 @@ const Header = () => {
   //   const name = account?.name ?? "";
   const [showNavColor, setShowNavColor] = useState(false);
   const handleLogout = () => {
-    instance
-      .logoutPopup({
-        postLogoutRedirectUri: "/login",
-        mainWindowRedirectUri: "/login",
-      })
-      .catch((error) => console.log(error));
-    navigate("/login");
+    localStorage.clear();
+    window.location.reload(false);
+    // instance
+    //   .logoutPopup({
+    //     postLogoutRedirectUri: "/login",
+    //     mainWindowRedirectUri: "/login",
+    //   })
+    //   .catch((error) => console.log(error));
+    // navigate("/login");
   };
   return (
     <MDBNavbar expand="lg" light bgColor="light">
       <MDBContainer fluid>
-        <MDBNavbarBrand href="/home">
+        <MDBNavbarBrand href="/">
           {" "}
           <img
             src="../bme.svg"
@@ -59,7 +61,7 @@ const Header = () => {
         <MDBCollapse show={showNavColor} navbar id="navbarColor02">
           <MDBNavbarNav className="me-auto mb-2 mb-lg-0">
             <MDBNavbarItem className="active">
-              <MDBNavbarLink aria-current="page" href="/home">
+              <MDBNavbarLink aria-current="page" href="/">
                 Home
               </MDBNavbarLink>
             </MDBNavbarItem>

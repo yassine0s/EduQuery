@@ -16,7 +16,6 @@ describe('Question routes', () => {
     test.each(mockQuestions)('should create a new question', async (question) => {
       const response = await request(app).post('/questions').send(question);
       expect(response.status).toBe(201);
-      // Add more assertions based on your API response
     });
   });
 

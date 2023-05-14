@@ -31,7 +31,7 @@ const Register = () => {
         if (response.status === 201) {
           // login was successful, navigate to the next page
           success();
-          navigate('./login');
+          navigate('../login');
         } else {
           // display an error message to the user
           error();

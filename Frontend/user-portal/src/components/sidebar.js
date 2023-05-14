@@ -6,6 +6,7 @@ import {
   PlusCircleOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
+import { useUser } from "../utils/customHooks";
 import { Link } from "react-router-dom";
 import { Layout, Menu, theme, ConfigProvider, Button } from "antd";
 const { Sider } = Layout;
@@ -13,6 +14,7 @@ const SideBar = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const { user } = useUser();
 
   return (
     <>
@@ -46,13 +48,17 @@ const SideBar = () => {
               Questions{" "}
             </Link>
           </Menu.Item>
-          <Menu.Item style={{ color: "black" }} key={4}>
-            <Link to="/reports">
-              <FileExclamationOutlined style={{ padding: "5px" }} />
-              Report
-            </Link>
-          </Menu.Item>
 
+          {user?.type === "admin" ? (
+            <Menu.Item style={{ color: "black" }} key={4}>
+              <Link to="/reports">
+                <FileExclamationOutlined style={{ padding: "5px" }} />
+                Report
+              </Link>
+            </Menu.Item>
+          ) : (
+            <></>
+          )}
           <Menu.Item style={{ color: "black", marginTop: "50vh" }} key={5}>
             <Link to="/askquestion">
               {" "}

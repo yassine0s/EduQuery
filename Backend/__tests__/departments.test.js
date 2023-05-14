@@ -9,13 +9,11 @@ describe('Department routes', () => {
     const response = await request(app).get('/departments');
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Array);
-    // Add more assertions based on your API response
   });
 
   describe('POST /departments', () => {
     test.each(mockDepartments)('should create new departments', async (department) => {
       const response = await request(app).post('/departments').send(department);
       expect(response.status).toBe(201);
-      // Add more assertions based on your API response
     });
   });});
